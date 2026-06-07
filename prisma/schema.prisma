@@ -1,0 +1,29 @@
+// HVR Media House — database schema
+// Docs: https://pris.ly/d/prisma-schema
+// Runs on Postgres (Vercel Storage / Neon). DATABASE_URL is the pooled
+// connection string injected by Vercel; the runtime uses @prisma/adapter-pg.
+
+generator client {
+  provider = "prisma-client"
+  output   = "../generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+// A lead/inquiry captured from the website contact form (or the AI chat later).
+model Lead {
+  id        String   @id @default(cuid())
+  name      String
+  email     String
+  phone     String?
+  company   String?
+  service   String? // which service they're interested in
+  budget    String? // optional budget range
+  message   String
+  source    String   @default("contact_form") // contact_form | ai_chat | other
+  status    String   @default("new") // new | contacted | won | lost
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}

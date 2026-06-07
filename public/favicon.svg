@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64">
+  <defs>
+    <linearGradient id="hvr" x1="0" y1="0" x2="0" y2="64" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#cf6a44"/>
+      <stop offset="1" stop-color="#a8482b"/>
+    </linearGradient>
+  </defs>
+  <rect width="64" height="64" rx="16" fill="url(#hvr)"/>
+  <text x="32" y="46" text-anchor="middle" fill="#fff"
+        font-family="'Trebuchet MS',Arial,sans-serif" font-size="40" font-weight="800">H</text>
+</svg>
