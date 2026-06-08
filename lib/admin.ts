@@ -8,6 +8,41 @@ export async function requireUser(): Promise<SessionUser> {
   return user;
 }
 
+/** Requires the logged-in user to hold one of the given roles. */
+export async function requireRole(
+  roles: readonly string[],
+): Promise<SessionUser> {
+  const user = await requireUser();
+  if (!roles.includes(user.role)) redirect("/admin");
+  return user;
+}
+
+export function canManageTeam(role: string): boolean {
+  return role === "owner" || role === "admin";
+}
+
+/** Canonical invoice money math — used everywhere so figures always agree. */
+export function invoiceTotals(
+  invoices: { status: string; amount: number; dueDate: Date | null }[],
+): { paid: number; outstanding: number; overdue: number } {
+  const now = Date.now();
+  let paid = 0;
+  let outstanding = 0;
+  let overdue = 0;
+  for (const i of invoices) {
+    if (i.status === "paid") {
+      paid += i.amount;
+    } else if (i.status === "sent" || i.status === "overdue") {
+      outstanding += i.amount; // billed but not paid (drafts excluded)
+      const isOverdue =
+        i.status === "overdue" ||
+        (i.dueDate != null && i.dueDate.getTime() < now);
+      if (isOverdue) overdue += i.amount;
+    }
+  }
+  return { paid, outstanding, overdue };
+}
+
 export function money(n: number | null | undefined): string {
   return "$" + (n ?? 0).toLocaleString("en-US");
 }
@@ -97,7 +132,8 @@ export function strOrNull(fd: FormData, key: string): string | null {
   return str(fd, key) || null;
 }
 export function intVal(fd: FormData, key: string): number {
-  const n = parseInt(str(fd, key).replace(/[^0-9-]/g, ""), 10);
+  // digits only → never negative, never keeps stray dashes/symbols
+  const n = parseInt(str(fd, key).replace(/[^0-9]/g, ""), 10);
   return Number.isFinite(n) ? n : 0;
 }
 export function dateOrNull(fd: FormData, key: string): Date | null {

@@ -9,6 +9,7 @@ import {
   strOrNull,
   intVal,
   dateOrNull,
+  CLIENT_STATUSES,
 } from "@/lib/admin";
 
 export async function createClient(fd: FormData) {
@@ -37,7 +38,7 @@ export async function updateClientStatus(fd: FormData) {
   await requireUser();
   const id = str(fd, "id");
   const status = str(fd, "status");
-  if (!id || !status) return;
+  if (!id || !(CLIENT_STATUSES as readonly string[]).includes(status)) return;
   await prisma.client.update({ where: { id }, data: { status } }).catch(() => {});
   revalidatePath("/admin/clients");
   revalidatePath(`/admin/clients/${id}`);
@@ -46,7 +47,14 @@ export async function updateClientStatus(fd: FormData) {
 export async function deleteClient(fd: FormData) {
   await requireUser();
   const id = str(fd, "id");
-  if (id) await prisma.client.delete({ where: { id } }).catch(() => {});
+  if (id) {
+    // Don't orphan leads that were converted into this client.
+    await prisma.lead.updateMany({
+      where: { convertedClientId: id },
+      data: { convertedClientId: null, status: "contacted" },
+    });
+    await prisma.client.delete({ where: { id } }).catch(() => {});
+  }
   revalidatePath("/admin/clients");
   redirect("/admin/clients");
 }

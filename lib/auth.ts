@@ -81,15 +81,13 @@ export async function getSessionUser(): Promise<SessionUser | null> {
   const store = await cookies();
   const parsed = readToken(store.get(ADMIN_COOKIE)?.value);
   if (!parsed) return null;
-  try {
-    const user = await prisma.user.findUnique({
-      where: { id: parsed.uid },
-      select: { id: true, name: true, email: true, role: true },
-    });
-    return user ?? null;
-  } catch {
-    return null;
-  }
+  // A deleted user resolves to null; a DB error is allowed to propagate to an
+  // error boundary rather than silently logging a valid session out.
+  const user = await prisma.user.findUnique({
+    where: { id: parsed.uid },
+    select: { id: true, name: true, email: true, role: true },
+  });
+  return user ?? null;
 }
 
 export async function isAuthenticated(): Promise<boolean> {

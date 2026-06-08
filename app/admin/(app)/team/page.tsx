@@ -1,6 +1,12 @@
 import { Plus, Trash2 } from "lucide-react";
 import { prisma } from "@/lib/prisma";
-import { requireUser, fdate, badgeClass, ROLES } from "@/lib/admin";
+import {
+  requireUser,
+  canManageTeam,
+  fdate,
+  badgeClass,
+  ROLES,
+} from "@/lib/admin";
 import { SubmitSelect, ConfirmButton } from "@/components/admin/Forms";
 import { createUser, updateUserRole, deleteUser } from "./actions";
 
@@ -9,6 +15,7 @@ const IN =
 
 export default async function TeamPage() {
   const me = await requireUser();
+  const canManage = canManageTeam(me.role);
   const users = await prisma.user.findMany({
     orderBy: { createdAt: "asc" },
     select: { id: true, name: true, email: true, role: true, createdAt: true },
@@ -19,8 +26,10 @@ export default async function TeamPage() {
       <h1 className="font-display text-2xl font-bold">Team</h1>
       <p className="mt-1 text-sm text-muted">
         {users.length} {users.length === 1 ? "member" : "members"}
+        {!canManage && " · only owners and admins can manage the team"}
       </p>
 
+      {canManage && (
       <details className="matte mt-5 rounded-2xl">
         <summary className="flex cursor-pointer items-center gap-2 px-5 py-4 text-sm font-semibold">
           <Plus size={16} className="text-brand" /> Add a team member
@@ -39,6 +48,7 @@ export default async function TeamPage() {
           </div>
         </form>
       </details>
+      )}
 
       <div className="mt-6 overflow-x-auto">
         <table className="w-full min-w-[640px] border-separate border-spacing-y-2 text-sm">
@@ -63,7 +73,7 @@ export default async function TeamPage() {
                     <div className="text-xs text-muted">{u.email}</div>
                   </td>
                   <td className="px-4 py-3">
-                    {isSelf ? (
+                    {isSelf || !canManage ? (
                       <span className={`rounded-full px-2.5 py-1 text-xs font-medium capitalize ${badgeClass(u.role)}`}>{u.role}</span>
                     ) : (
                       <form action={updateUserRole}>
@@ -74,7 +84,7 @@ export default async function TeamPage() {
                   </td>
                   <td className="px-4 py-3 text-muted">{fdate(u.createdAt)}</td>
                   <td className="rounded-r-xl px-4 py-3 text-right">
-                    {!isSelf && (
+                    {!isSelf && canManage && (
                       <form action={deleteUser} className="inline">
                         <input type="hidden" name="id" value={u.id} />
                         <ConfirmButton message={`Remove ${u.name}?`} ariaLabel="Remove member" className="text-muted hover:text-red-600">

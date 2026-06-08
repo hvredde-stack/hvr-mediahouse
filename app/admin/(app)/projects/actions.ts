@@ -8,6 +8,7 @@ import {
   strOrNull,
   intVal,
   dateOrNull,
+  PROJECT_STATUSES,
 } from "@/lib/admin";
 
 export async function createProject(fd: FormData) {
@@ -34,7 +35,7 @@ export async function updateProjectStatus(fd: FormData) {
   await requireUser();
   const id = str(fd, "id");
   const status = str(fd, "status");
-  if (!id || !status) return;
+  if (!id || !(PROJECT_STATUSES as readonly string[]).includes(status)) return;
   await prisma.project.update({ where: { id }, data: { status } }).catch(() => {});
   revalidatePath("/admin/projects");
 }

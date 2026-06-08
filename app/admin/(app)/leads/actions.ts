@@ -3,13 +3,13 @@
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { prisma } from "@/lib/prisma";
-import { requireUser, str } from "@/lib/admin";
+import { requireUser, str, LEAD_STATUSES } from "@/lib/admin";
 
 export async function updateLeadStatus(fd: FormData) {
   await requireUser();
   const id = str(fd, "id");
   const status = str(fd, "status");
-  if (!id || !status) return;
+  if (!id || !(LEAD_STATUSES as readonly string[]).includes(status)) return;
   await prisma.lead.update({ where: { id }, data: { status } }).catch(() => {});
   revalidatePath("/admin/leads");
   revalidatePath("/admin");

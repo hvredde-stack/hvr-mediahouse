@@ -98,7 +98,7 @@ model Invoice {
   id        String    @id @default(cuid())
   clientId  String
   client    Client    @relation(fields: [clientId], references: [id], onDelete: Cascade)
-  number    String
+  number    String    @unique
   amount    Int       @default(0) // whole dollars
   status    String    @default("draft") // draft | sent | paid | overdue
   issueDate DateTime?

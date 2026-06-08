@@ -2,7 +2,13 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ArrowLeft, Mail, Phone, Trash2 } from "lucide-react";
 import { prisma } from "@/lib/prisma";
-import { money, fdate, badgeClass, CLIENT_STATUSES } from "@/lib/admin";
+import {
+  money,
+  fdate,
+  badgeClass,
+  invoiceTotals,
+  CLIENT_STATUSES,
+} from "@/lib/admin";
 import { SubmitSelect, ConfirmButton } from "@/components/admin/Forms";
 import { updateClientStatus, deleteClient } from "../actions";
 
@@ -23,12 +29,7 @@ export default async function ClientDetail({
   });
   if (!client) notFound();
 
-  const paid = client.invoices
-    .filter((i) => i.status === "paid")
-    .reduce((s, i) => s + i.amount, 0);
-  const outstanding = client.invoices
-    .filter((i) => i.status !== "paid" && i.status !== "draft")
-    .reduce((s, i) => s + i.amount, 0);
+  const { paid, outstanding } = invoiceTotals(client.invoices);
 
   return (
     <div className="space-y-6">

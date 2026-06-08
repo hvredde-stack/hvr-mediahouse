@@ -2,7 +2,13 @@
 
 import { revalidatePath } from "next/cache";
 import { prisma } from "@/lib/prisma";
-import { requireUser, str, strOrNull, dateOrNull } from "@/lib/admin";
+import {
+  requireUser,
+  str,
+  strOrNull,
+  dateOrNull,
+  CONTENT_STATUSES,
+} from "@/lib/admin";
 
 export async function createContent(fd: FormData) {
   await requireUser();
@@ -29,7 +35,7 @@ export async function updateContentStatus(fd: FormData) {
   await requireUser();
   const id = str(fd, "id");
   const status = str(fd, "status");
-  if (!id || !status) return;
+  if (!id || !(CONTENT_STATUSES as readonly string[]).includes(status)) return;
   await prisma.contentItem
     .update({ where: { id }, data: { status } })
     .catch(() => {});

@@ -117,7 +117,7 @@ export default async function ClientsPage() {
                     <form action={deleteClient} className="inline">
                       <input type="hidden" name="id" value={c.id} />
                       <ConfirmButton
-                        message={`Delete ${c.name} and all their projects, content and invoices?`}
+                        message={`Delete ${c.name}? This permanently removes ${c._count.projects} projects, ${c._count.content} content items and ${c._count.invoices} invoices. This cannot be undone.`}
                         ariaLabel="Delete client"
                         className="text-muted hover:text-red-600"
                       >

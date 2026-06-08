@@ -8,7 +8,7 @@ import {
   AlertTriangle,
 } from "lucide-react";
 import { prisma } from "@/lib/prisma";
-import { money, fdate, badgeClass } from "@/lib/admin";
+import { money, fdate, badgeClass, invoiceTotals } from "@/lib/admin";
 
 export default async function Dashboard() {
   const now = new Date();
@@ -18,8 +18,7 @@ export default async function Dashboard() {
     activeClients,
     retainerRows,
     contentDue,
-    overdueRows,
-    outstandingRows,
+    invoiceRows,
     newLeads,
     recentLeads,
     upcomingContent,
@@ -33,12 +32,8 @@ export default async function Dashboard() {
       where: { status: "scheduled", scheduledFor: { gte: now, lte: weekAhead } },
     }),
     prisma.invoice.findMany({
-      where: { status: { in: ["sent", "overdue"] }, dueDate: { lt: now } },
-      select: { amount: true },
-    }),
-    prisma.invoice.findMany({
-      where: { status: { in: ["draft", "sent", "overdue"] } },
-      select: { amount: true },
+      where: { status: { in: ["sent", "overdue"] } },
+      select: { status: true, amount: true, dueDate: true },
     }),
     prisma.lead.count({ where: { status: "new" } }),
     prisma.lead.findMany({ orderBy: { createdAt: "desc" }, take: 5 }),
@@ -51,8 +46,7 @@ export default async function Dashboard() {
   ]);
 
   const mrr = retainerRows.reduce((s, c) => s + (c.retainer || 0), 0);
-  const overdueTotal = overdueRows.reduce((s, i) => s + i.amount, 0);
-  const outstanding = outstandingRows.reduce((s, i) => s + i.amount, 0);
+  const { outstanding, overdue: overdueTotal } = invoiceTotals(invoiceRows);
 
   const kpis = [
     { label: "Active clients", value: String(activeClients), Icon: Users, href: "/admin/clients" },

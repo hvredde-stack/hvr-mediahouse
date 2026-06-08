@@ -1,7 +1,13 @@
 import Link from "next/link";
 import { Plus, Trash2 } from "lucide-react";
 import { prisma } from "@/lib/prisma";
-import { money, fdate, badgeClass, INVOICE_STATUSES } from "@/lib/admin";
+import {
+  money,
+  fdate,
+  badgeClass,
+  invoiceTotals,
+  INVOICE_STATUSES,
+} from "@/lib/admin";
 import { SubmitSelect, ConfirmButton } from "@/components/admin/Forms";
 import { createInvoice, updateInvoiceStatus, deleteInvoice } from "./actions";
 
@@ -17,11 +23,7 @@ export default async function PaymentsPage() {
     prisma.client.findMany({ orderBy: { name: "asc" }, select: { id: true, name: true } }),
   ]);
 
-  const paid = invoices.filter((i) => i.status === "paid").reduce((s, i) => s + i.amount, 0);
-  const outstanding = invoices
-    .filter((i) => i.status === "sent" || i.status === "overdue")
-    .reduce((s, i) => s + i.amount, 0);
-  const overdue = invoices.filter((i) => i.status === "overdue").reduce((s, i) => s + i.amount, 0);
+  const { paid, outstanding, overdue } = invoiceTotals(invoices);
 
   return (
     <div>
