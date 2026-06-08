@@ -18,7 +18,7 @@ export function Pricing() {
               A partnership, <span className="italic text-brand">not a checkout</span>
             </>
           }
-          subtitle="Most brands start with Growth — our flagship engagement. Two leaner options sit alongside it. No long contracts, cancel anytime."
+          subtitle="Most brands start with Growth — our flagship engagement. Two leaner options sit alongside it. No long contracts, cancel anytime. All prices in CAD."
         />
 
         <div className="mt-14 grid gap-5 lg:grid-cols-5">

@@ -76,9 +76,19 @@ export function Footer() {
         </div>
 
         <div className="mt-12 flex flex-col items-center justify-between gap-4 border-t border-border pt-8 sm:flex-row">
-          <p className="text-xs text-muted">
-            © {new Date().getFullYear()} {site.name}. All rights reserved.
-          </p>
+          <div className="flex flex-col items-center gap-2 sm:flex-row sm:gap-4">
+            <p className="text-xs text-muted">
+              © {new Date().getFullYear()} {site.name}. All rights reserved.
+            </p>
+            <div className="flex gap-4 text-xs">
+              <a href="/privacy" className="text-muted transition-colors hover:text-fg">
+                Privacy
+              </a>
+              <a href="/terms" className="text-muted transition-colors hover:text-fg">
+                Terms
+              </a>
+            </div>
+          </div>
           <div className="flex gap-3">
             {socialLinks.map(({ href, label, Icon }) => (
               <a

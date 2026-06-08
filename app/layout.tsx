@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from "next";
 import { Inter, Poppins } from "next/font/google";
 import "./globals.css";
 import { site } from "@/lib/site";
+import { SiteAnalytics } from "@/components/SiteAnalytics";
 
 const inter = Inter({
   variable: "--font-body-face",
@@ -101,6 +102,7 @@ export default function RootLayout({
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
+        <SiteAnalytics />
       </body>
     </html>
   );

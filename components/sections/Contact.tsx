@@ -1,7 +1,15 @@
 "use client";
 
 import { useState } from "react";
-import { Send, CheckCircle2, Mail, Phone, MapPin, Loader2 } from "lucide-react";
+import {
+  Send,
+  CheckCircle2,
+  Mail,
+  Phone,
+  MapPin,
+  Loader2,
+  CalendarClock,
+} from "lucide-react";
 import { FaInstagram } from "react-icons/fa6";
 import { site, serviceOptions, budgetOptions } from "@/lib/site";
 import { Reveal } from "../Reveal";
@@ -53,6 +61,17 @@ export function Contact() {
               Tell us a little about your brand and goals. We&apos;ll reply
               within one business day with next steps — no pressure, no jargon.
             </p>
+
+            {site.bookingUrl && (
+              <a
+                href={site.bookingUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="gradient-bg mt-7 inline-flex items-center gap-2 rounded-full px-6 py-3 text-sm font-semibold text-white shadow-lg shadow-brand-strong/20 transition-transform hover:scale-[1.02]"
+              >
+                <CalendarClock size={16} /> Book a free 30-min call
+              </a>
+            )}
 
             <div className="mt-10 space-y-5">
               <a

@@ -24,6 +24,15 @@ export const site = {
 
   // Currency symbol shown on pricing (CAD). Change to ₹, €, £, etc.
   currency: "$",
+  currencyCode: "CAD",
+
+  // Optional: a Cal.com / Calendly link for the "Book a call" buttons.
+  // Leave "" and those buttons fall back to the contact form.
+  bookingUrl: "",
+
+  // Optional: Meta (Facebook) Pixel ID for ad retargeting. Leave "" to keep
+  // the pixel — and the cookie-consent banner — completely off.
+  metaPixelId: "",
 
   socials: {
     // Real profile URLs. Leave a platform as "" until its account exists —
