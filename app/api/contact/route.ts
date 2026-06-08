@@ -14,6 +14,15 @@ export async function POST(req: Request) {
   try {
     const data = await req.json().catch(() => ({}));
 
+    // Honeypot: a hidden field real users never see. If it's filled, it's a
+    // bot — silently pretend success so the bot doesn't retry, but save nothing.
+    if (
+      typeof data.company_website === "string" &&
+      data.company_website.trim() !== ""
+    ) {
+      return NextResponse.json({ ok: true });
+    }
+
     const name = clean(data.name, 120);
     const email = clean(data.email, 200);
     const message = clean(data.message, 4000);

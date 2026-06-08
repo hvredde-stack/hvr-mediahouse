@@ -78,7 +78,11 @@ export function Contact() {
           {/* Right: the form */}
           <div className="lg:col-span-3">
             {status === "success" ? (
-              <Reveal className="flex h-full min-h-[20rem] flex-col items-center justify-center text-center">
+              <div
+                role="status"
+                aria-live="polite"
+                className="flex h-full min-h-[20rem] flex-col items-center justify-center text-center"
+              >
                 <CheckCircle2 size={52} className="text-brand" />
                 <h3 className="mt-5 font-display text-2xl font-semibold">
                   Thanks — message received.
@@ -93,9 +97,22 @@ export function Contact() {
                 >
                   Send another message
                 </button>
-              </Reveal>
+              </div>
             ) : (
-              <form onSubmit={handleSubmit} className="space-y-8">
+              <form
+                onSubmit={handleSubmit}
+                className="space-y-8"
+                aria-busy={status === "submitting"}
+              >
+                {/* Honeypot — hidden from humans, catches spam bots. */}
+                <input
+                  type="text"
+                  name="company_website"
+                  tabIndex={-1}
+                  autoComplete="off"
+                  aria-hidden="true"
+                  className="pointer-events-none absolute left-[-9999px] h-0 w-0 opacity-0"
+                />
                 <div className="grid gap-8 sm:grid-cols-2">
                   <Field
                     label="Your name"
@@ -146,7 +163,10 @@ export function Contact() {
                 />
 
                 {status === "error" && (
-                  <p className="rounded-lg border border-red-500/30 bg-red-500/10 px-4 py-3 text-sm text-red-300">
+                  <p
+                    role="alert"
+                    className="rounded-lg border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700"
+                  >
                     {error}
                   </p>
                 )}

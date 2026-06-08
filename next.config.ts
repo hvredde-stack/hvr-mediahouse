@@ -24,6 +24,15 @@ const nextConfig: NextConfig = {
           },
         ],
       },
+      {
+        // Keep the admin area out of search indexes at the HTTP layer.
+        source: "/admin",
+        headers: [{ key: "X-Robots-Tag", value: "noindex, nofollow" }],
+      },
+      {
+        source: "/admin/:path*",
+        headers: [{ key: "X-Robots-Tag", value: "noindex, nofollow" }],
+      },
     ];
   },
 };

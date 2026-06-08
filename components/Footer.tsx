@@ -77,7 +77,7 @@ export function Footer() {
 
         <div className="mt-12 flex flex-col items-center justify-between gap-4 border-t border-border pt-8 sm:flex-row">
           <p className="text-xs text-muted">
-            © {2026} {site.name}. All rights reserved.
+            © {new Date().getFullYear()} {site.name}. All rights reserved.
           </p>
           <div className="flex gap-3">
             {socialLinks.map(({ href, label, Icon }) => (

@@ -5,14 +5,18 @@ export const ADMIN_COOKIE = "hvr_admin";
 const MAX_AGE_SECONDS = 60 * 60 * 24 * 7; // 7 days
 export const ADMIN_COOKIE_MAX_AGE = MAX_AGE_SECONDS;
 
-function secret(): string {
-  return process.env.ADMIN_SESSION_SECRET || "dev-insecure-secret-change-me";
+/** The signing secret, or null if it isn't configured (fail closed). */
+function secret(): string | null {
+  return process.env.ADMIN_SESSION_SECRET || null;
 }
 
 /** Validates a username/password against the env credentials. */
 export function checkCredentials(username: string, password: string): boolean {
-  const u = process.env.ADMIN_USERNAME || "admin";
-  const p = process.env.ADMIN_PASSWORD || "admin";
+  const u = process.env.ADMIN_USERNAME;
+  const p = process.env.ADMIN_PASSWORD;
+  // Fail closed: with no configured credentials or signing secret, the admin
+  // is disabled entirely — never fall back to default/guessable values.
+  if (!u || !p || !process.env.ADMIN_SESSION_SECRET) return false;
   // constant-time-ish comparison
   const okU = safeEqual(username, u);
   const okP = safeEqual(password, p);
@@ -28,25 +32,25 @@ function safeEqual(a: string, b: string): boolean {
 
 /** Creates a signed session token for the given user. */
 export function createSessionToken(username: string): string {
+  const s = secret();
+  if (!s) throw new Error("ADMIN_SESSION_SECRET is not configured");
   const exp = Date.now() + MAX_AGE_SECONDS * 1000;
   const payload = Buffer.from(JSON.stringify({ u: username, exp })).toString(
     "base64url",
   );
-  const sig = crypto
-    .createHmac("sha256", secret())
-    .update(payload)
-    .digest("base64url");
+  const sig = crypto.createHmac("sha256", s).update(payload).digest("base64url");
   return `${payload}.${sig}`;
 }
 
 /** Returns true if the token is well-formed, correctly signed and unexpired. */
 export function verifySessionToken(token?: string | null): boolean {
-  if (!token) return false;
+  const s = secret();
+  if (!s || !token) return false;
   const [payload, sig] = token.split(".");
   if (!payload || !sig) return false;
 
   const expected = crypto
-    .createHmac("sha256", secret())
+    .createHmac("sha256", s)
     .update(payload)
     .digest("base64url");
 

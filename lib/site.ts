@@ -16,11 +16,11 @@ export const site = {
     "HVR Media House is a Greater Toronto Area social media marketing agency. We grow brands across Toronto and the GTA on Instagram, Facebook, TikTok and YouTube with scroll-stopping content, smart paid ads, and strategy that drives real results.",
 
   // Used for links and the contact section. EDIT THESE.
-  email: "hvrphotostudio@gmail.com",
-  phone: "+1 (416) 555-0188",
+  email: "hvrmediahouse@gmail.com",
+  phone: "+1 (647) 571-3324",
   location: "Greater Toronto Area · Toronto, ON",
-  // The website address once deployed (used for SEO/social previews).
-  url: "https://hvrmediahouse.com",
+  // The website address (used for SEO/social previews). Matches the live host.
+  url: "https://www.hvrmediahouse.com",
 
   // Currency symbol shown on pricing (CAD). Change to ₹, €, £, etc.
   currency: "$",

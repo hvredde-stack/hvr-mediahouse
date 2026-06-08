@@ -22,8 +22,16 @@ export async function PATCH(
     return NextResponse.json({ error: "Invalid status" }, { status: 400 });
   }
 
-  const lead = await prisma.lead.update({ where: { id }, data: { status } });
-  return NextResponse.json({ ok: true, lead });
+  try {
+    const lead = await prisma.lead.update({ where: { id }, data: { status } });
+    return NextResponse.json({ ok: true, lead });
+  } catch (err) {
+    if ((err as { code?: string })?.code === "P2025") {
+      return NextResponse.json({ error: "Lead not found" }, { status: 404 });
+    }
+    console.error("[admin] lead update failed:", err);
+    return NextResponse.json({ error: "Update failed" }, { status: 500 });
+  }
 }
 
 export async function DELETE(
@@ -35,6 +43,14 @@ export async function DELETE(
   }
 
   const { id } = await params;
-  await prisma.lead.delete({ where: { id } });
-  return NextResponse.json({ ok: true });
+  try {
+    await prisma.lead.delete({ where: { id } });
+    return NextResponse.json({ ok: true });
+  } catch (err) {
+    if ((err as { code?: string })?.code === "P2025") {
+      return NextResponse.json({ error: "Lead not found" }, { status: 404 });
+    }
+    console.error("[admin] lead delete failed:", err);
+    return NextResponse.json({ error: "Delete failed" }, { status: 500 });
+  }
 }

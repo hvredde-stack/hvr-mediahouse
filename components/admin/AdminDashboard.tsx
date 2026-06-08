@@ -76,22 +76,33 @@ export function AdminDashboard({
   }, [leads, filter, query]);
 
   async function updateStatus(id: string, status: string) {
+    const snapshot = leads;
     setLeads((prev) =>
       prev.map((l) => (l.id === id ? { ...l, status } : l)),
     );
-    await fetch(`/api/admin/leads/${id}`, {
-      method: "PATCH",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ status }),
-    }).catch(() => router.refresh());
+    try {
+      const res = await fetch(`/api/admin/leads/${id}`, {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ status }),
+      });
+      if (!res.ok) throw new Error("Update failed");
+    } catch {
+      // Roll back the optimistic change if the server rejected it.
+      setLeads(snapshot);
+    }
   }
 
   async function remove(id: string) {
     if (!confirm("Delete this lead permanently?")) return;
+    const snapshot = leads;
     setLeads((prev) => prev.filter((l) => l.id !== id));
-    await fetch(`/api/admin/leads/${id}`, { method: "DELETE" }).catch(() =>
-      router.refresh(),
-    );
+    try {
+      const res = await fetch(`/api/admin/leads/${id}`, { method: "DELETE" });
+      if (!res.ok) throw new Error("Delete failed");
+    } catch {
+      setLeads(snapshot);
+    }
   }
 
   async function logout() {
@@ -141,9 +152,8 @@ export function AdminDashboard({
             <p className="font-semibold">Database not connected</p>
             <p className="mt-1 text-amber-700">
               This deployment has no database configured, so leads can&apos;t be
-              loaded or saved yet. Add a <code>DATABASE_URL</code> (and{" "}
-              <code>DATABASE_AUTH_TOKEN</code>) in your Vercel project settings,
-              then redeploy to enable lead capture.
+              loaded or saved yet. Add a <code>DATABASE_URL</code> in your
+              Vercel project settings, then redeploy to enable lead capture.
             </p>
           </div>
         )}

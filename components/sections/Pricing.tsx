@@ -89,7 +89,7 @@ export function Pricing() {
                   </div>
                   <p className="mt-2 text-sm text-muted">{plan.description}</p>
                   <ul className="mt-5 flex-1 space-y-2.5">
-                    {plan.features.slice(0, 4).map((f) => (
+                    {plan.features.map((f) => (
                       <li key={f} className="flex items-start gap-2.5 text-sm">
                         <Check
                           size={15}

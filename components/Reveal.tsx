@@ -1,6 +1,6 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
 import type { ReactNode } from "react";
 
 type RevealProps = {
@@ -10,8 +10,15 @@ type RevealProps = {
   className?: string;
 };
 
-/** Fades + slides content in when it scrolls into view. */
+/** Fades + slides content in when it scrolls into view (motion-safe). */
 export function Reveal({ children, delay = 0, y = 24, className }: RevealProps) {
+  const reduceMotion = useReducedMotion();
+
+  // Respect prefers-reduced-motion: render in place with no JS animation.
+  if (reduceMotion) {
+    return <div className={className}>{children}</div>;
+  }
+
   return (
     <motion.div
       className={className}

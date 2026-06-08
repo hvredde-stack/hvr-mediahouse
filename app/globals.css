@@ -5,10 +5,10 @@
    Sand canvas · cocoa-ink type · one terracotta accent
    ───────────────────────────────────────────────────────────── */
 @theme {
-  --color-bg: #ffffff; /* white canvas */
-  --color-bg-2: #f5f4f6; /* near-white surface */
-  --color-surface: #ffffff; /* white card */
-  --color-border: #ebebf0; /* light cool hairline */
+  --color-bg: #faf6f1; /* warm sand canvas */
+  --color-bg-2: #f2ece2; /* soft sand surface */
+  --color-surface: #ffffff; /* crisp white card — pops on the sand canvas */
+  --color-border: #e9e1d4; /* warm sand hairline */
   --color-fg: #2a211a; /* cocoa-ink */
   --color-muted: #7a6f63; /* warm muted */
 
@@ -28,12 +28,12 @@
   --color-coral: #e0745a;
   --color-plum: #8a5a7d;
 
-  /* Warm section panels */
-  --color-tint-lav: #f5f6f8; /* whisper cool-neutral (hero / footer) */
-  --color-tint-blush: #ffffff; /* white */
-  --color-tint-mint: #f7f8fa; /* whisper cool-neutral */
-  --color-tint-sky: #ffffff; /* white */
-  --color-tint-peach: #f7f8fa; /* whisper cool-neutral */
+  /* Warm muted-pastel section panels — alternate with the sand canvas */
+  --color-tint-lav: #f6f0e7; /* warm whisper (hero / footer) */
+  --color-tint-blush: #fbeee6; /* soft blush */
+  --color-tint-mint: #eef1ea; /* whisper sage */
+  --color-tint-sky: #f8f1e8; /* warm cream */
+  --color-tint-peach: #f9e8db; /* muted peach */
 
   --font-sans: var(--font-body-face), ui-sans-serif, system-ui, sans-serif;
   --font-display: var(--font-display-face), ui-sans-serif, system-ui, sans-serif;
