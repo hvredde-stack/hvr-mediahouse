@@ -27,8 +27,8 @@ export function Navbar() {
     <header
       className={`fixed inset-x-0 top-0 z-50 transition-all duration-300 ${
         scrolled
-          ? "glass border-b border-border py-3"
-          : "border-b border-transparent py-5"
+          ? "glass py-3"
+          : "py-5"
       }`}
     >
       <nav className="container-page flex items-center justify-between">

@@ -100,7 +100,7 @@ export function Hero() {
           {/* headline */}
           <div className="relative z-10 mx-auto max-w-2xl">
             <motion.p custom={0} variants={fadeUp} initial="hidden" animate="show" className="overline">
-              Greater Toronto Area · Social media marketing
+              Social media marketing for Toronto &amp; the GTA
             </motion.p>
             <motion.h1
               variants={wordContainer}
