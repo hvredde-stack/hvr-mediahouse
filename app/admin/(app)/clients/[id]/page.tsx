@@ -1,0 +1,212 @@
+import Link from "next/link";
+import { notFound } from "next/navigation";
+import { ArrowLeft, Mail, Phone, Trash2 } from "lucide-react";
+import { prisma } from "@/lib/prisma";
+import { money, fdate, badgeClass, CLIENT_STATUSES } from "@/lib/admin";
+import { SubmitSelect, ConfirmButton } from "@/components/admin/Forms";
+import { updateClientStatus, deleteClient } from "../actions";
+
+export default async function ClientDetail({
+  params,
+}: {
+  params: Promise<{ id: string }>;
+}) {
+  const { id } = await params;
+  const client = await prisma.client.findUnique({
+    where: { id },
+    include: {
+      projects: { orderBy: { createdAt: "desc" } },
+      content: { orderBy: [{ scheduledFor: "asc" }, { createdAt: "desc" }] },
+      invoices: { orderBy: { createdAt: "desc" } },
+      tasks: { where: { done: false }, orderBy: { createdAt: "desc" } },
+    },
+  });
+  if (!client) notFound();
+
+  const paid = client.invoices
+    .filter((i) => i.status === "paid")
+    .reduce((s, i) => s + i.amount, 0);
+  const outstanding = client.invoices
+    .filter((i) => i.status !== "paid" && i.status !== "draft")
+    .reduce((s, i) => s + i.amount, 0);
+
+  return (
+    <div className="space-y-6">
+      <Link
+        href="/admin/clients"
+        className="inline-flex items-center gap-1.5 text-sm text-muted hover:text-fg"
+      >
+        <ArrowLeft size={15} /> All clients
+      </Link>
+
+      {/* Header */}
+      <div className="matte rounded-2xl p-6">
+        <div className="flex flex-wrap items-start justify-between gap-4">
+          <div>
+            <h1 className="font-display text-2xl font-bold">{client.name}</h1>
+            <div className="mt-2 flex flex-wrap gap-x-5 gap-y-1 text-sm text-muted">
+              {client.contactEmail && (
+                <a href={`mailto:${client.contactEmail}`} className="inline-flex items-center gap-1.5 hover:text-fg">
+                  <Mail size={14} /> {client.contactEmail}
+                </a>
+              )}
+              {client.contactPhone && (
+                <span className="inline-flex items-center gap-1.5">
+                  <Phone size={14} /> {client.contactPhone}
+                </span>
+              )}
+            </div>
+            <div className="mt-3 flex flex-wrap gap-2 text-xs">
+              {client.plan && <span className="rounded-full bg-bg-2 px-2.5 py-1">{client.plan}</span>}
+              <span className="rounded-full bg-bg-2 px-2.5 py-1">{money(client.retainer)}/mo</span>
+              {client.platforms && <span className="rounded-full bg-bg-2 px-2.5 py-1">{client.platforms}</span>}
+              {client.startDate && <span className="rounded-full bg-bg-2 px-2.5 py-1">Since {fdate(client.startDate)}</span>}
+            </div>
+          </div>
+          <div className="flex items-center gap-2">
+            <form action={updateClientStatus}>
+              <input type="hidden" name="id" value={client.id} />
+              <SubmitSelect
+                name="status"
+                defaultValue={client.status}
+                options={CLIENT_STATUSES}
+                className={`rounded-full border-0 px-3 py-1.5 text-xs font-medium capitalize ${badgeClass(client.status)}`}
+              />
+            </form>
+            <form action={deleteClient}>
+              <input type="hidden" name="id" value={client.id} />
+              <ConfirmButton
+                message={`Delete ${client.name} and all related records?`}
+                ariaLabel="Delete client"
+                className="grid h-9 w-9 place-items-center rounded-lg border border-border text-muted hover:border-red-500/50 hover:text-red-600"
+              >
+                <Trash2 size={16} />
+              </ConfirmButton>
+            </form>
+          </div>
+        </div>
+        {client.notes && (
+          <p className="mt-4 whitespace-pre-wrap border-t border-border pt-4 text-sm text-fg/80">
+            {client.notes}
+          </p>
+        )}
+      </div>
+
+      <div className="grid gap-3 sm:grid-cols-3">
+        <Stat label="Paid to date" value={money(paid)} />
+        <Stat label="Outstanding" value={money(outstanding)} />
+        <Stat label="Open tasks" value={String(client.tasks.length)} />
+      </div>
+
+      <div className="grid gap-6 lg:grid-cols-2">
+        <Panel title="Projects" href="/admin/projects" empty="No projects yet">
+          {client.projects.map((p) => (
+            <Row
+              key={p.id}
+              title={p.name}
+              sub={`${p.type}${p.dueDate ? ` · due ${fdate(p.dueDate)}` : ""}`}
+              status={p.status}
+            />
+          ))}
+        </Panel>
+
+        <Panel title="Content" href="/admin/content" empty="No content yet">
+          {client.content.slice(0, 8).map((c) => (
+            <Row
+              key={c.id}
+              title={c.title}
+              sub={`${c.platform}${c.scheduledFor ? ` · ${fdate(c.scheduledFor)}` : ""}`}
+              status={c.status}
+            />
+          ))}
+        </Panel>
+
+        <Panel title="Invoices" href="/admin/payments" empty="No invoices yet">
+          {client.invoices.map((i) => (
+            <Row
+              key={i.id}
+              title={`#${i.number} · ${money(i.amount)}`}
+              sub={i.dueDate ? `due ${fdate(i.dueDate)}` : ""}
+              status={i.status}
+            />
+          ))}
+        </Panel>
+
+        <Panel title="Open tasks" href="/admin/tasks" empty="No open tasks">
+          {client.tasks.map((t) => (
+            <Row
+              key={t.id}
+              title={t.title}
+              sub={t.dueDate ? `due ${fdate(t.dueDate)}` : ""}
+            />
+          ))}
+        </Panel>
+      </div>
+    </div>
+  );
+}
+
+function Stat({ label, value }: { label: string; value: string }) {
+  return (
+    <div className="matte rounded-2xl p-5">
+      <div className="text-xs text-muted">{label}</div>
+      <div className="mt-1 font-display text-xl font-bold">{value}</div>
+    </div>
+  );
+}
+
+function Panel({
+  title,
+  href,
+  empty,
+  children,
+}: {
+  title: string;
+  href: string;
+  empty: string;
+  children: React.ReactNode;
+}) {
+  const items = Array.isArray(children) ? children : [children];
+  const hasItems = items.some(Boolean);
+  return (
+    <section className="matte rounded-2xl p-5">
+      <div className="mb-3 flex items-center justify-between">
+        <h2 className="font-display text-lg font-semibold">{title}</h2>
+        <Link href={href} className="text-sm font-medium text-brand">
+          Manage
+        </Link>
+      </div>
+      {hasItems ? (
+        <ul className="divide-y divide-border">{children}</ul>
+      ) : (
+        <p className="py-5 text-center text-sm text-muted">{empty}</p>
+      )}
+    </section>
+  );
+}
+
+function Row({
+  title,
+  sub,
+  status,
+}: {
+  title: string;
+  sub?: string;
+  status?: string;
+}) {
+  return (
+    <li className="flex items-center justify-between gap-3 py-2.5">
+      <div className="min-w-0">
+        <div className="truncate text-sm font-medium">{title}</div>
+        {sub && <div className="truncate text-xs capitalize text-muted">{sub}</div>}
+      </div>
+      {status && (
+        <span
+          className={`shrink-0 rounded-full px-2 py-0.5 text-xs font-medium capitalize ${badgeClass(status)}`}
+        >
+          {status}
+        </span>
+      )}
+    </li>
+  );
+}

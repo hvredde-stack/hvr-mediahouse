@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import {
-  checkCredentials,
+  authenticate,
   createSessionToken,
   ADMIN_COOKIE,
   ADMIN_COOKIE_MAX_AGE,
@@ -10,18 +10,19 @@ export const runtime = "nodejs";
 
 export async function POST(req: Request) {
   const data = await req.json().catch(() => ({}));
-  const username = typeof data.username === "string" ? data.username : "";
+  const email = typeof data.email === "string" ? data.email : "";
   const password = typeof data.password === "string" ? data.password : "";
 
-  if (!checkCredentials(username, password)) {
+  const user = await authenticate(email, password);
+  if (!user) {
     return NextResponse.json(
-      { error: "Incorrect username or password." },
+      { error: "Incorrect email or password." },
       { status: 401 },
     );
   }
 
   const res = NextResponse.json({ ok: true });
-  res.cookies.set(ADMIN_COOKIE, createSessionToken(username), {
+  res.cookies.set(ADMIN_COOKIE, createSessionToken(user.id), {
     httpOnly: true,
     sameSite: "lax",
     secure: process.env.NODE_ENV === "production",

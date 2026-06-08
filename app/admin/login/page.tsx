@@ -53,13 +53,13 @@ export default function AdminLogin() {
 
           <form onSubmit={handleSubmit} className="space-y-4">
             <div>
-              <label className="mb-1.5 block text-sm font-medium">
-                Username
-              </label>
+              <label className="mb-1.5 block text-sm font-medium">Email</label>
               <input
-                name="username"
+                name="email"
+                type="email"
                 required
                 autoFocus
+                autoComplete="email"
                 className="w-full rounded-xl border border-border bg-bg-2 px-4 py-3 text-fg focus:border-brand-purple/60 focus:outline-none"
               />
             </div>

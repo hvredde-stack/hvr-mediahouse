@@ -1,5 +1,4 @@
 // HVR Media House — database schema
-// Docs: https://pris.ly/d/prisma-schema
 // Runs on Postgres (Vercel Storage / Neon). DATABASE_URL is the pooled
 // connection string injected by Vercel; the runtime uses @prisma/adapter-pg.
 
@@ -12,18 +11,114 @@ datasource db {
   provider = "postgresql"
 }
 
-// A lead/inquiry captured from the website contact form (or the AI chat later).
+// ── Team members who can log into the admin ──────────────────────────
+model User {
+  id           String   @id @default(cuid())
+  name         String
+  email        String   @unique
+  passwordHash String
+  role         String   @default("member") // owner | admin | member
+  createdAt    DateTime @default(now())
+  tasks        Task[]   @relation("AssignedTasks")
+}
+
+// ── A lead/inquiry captured from the website contact form ────────────
 model Lead {
-  id        String   @id @default(cuid())
+  id                String   @id @default(cuid())
+  name              String
+  email             String
+  phone             String?
+  company           String?
+  service           String?
+  budget            String?
+  message           String
+  source            String   @default("contact_form") // contact_form | ai_chat | other
+  status            String   @default("new") // new | contacted | won | lost
+  convertedClientId String? // set when a lead is turned into a client
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
+}
+
+// ── A client the agency works with (the hub of the admin) ────────────
+model Client {
+  id           String        @id @default(cuid())
+  name         String
+  contactName  String?
+  contactEmail String?
+  contactPhone String?
+  platforms    String? // comma-separated, e.g. "Instagram, TikTok"
+  plan         String? // Starter | Growth | Scale | Custom
+  retainer     Int           @default(0) // monthly retainer in whole dollars
+  status       String        @default("active") // onboarding | active | paused | churned
+  startDate    DateTime?
+  notes        String?
+  createdAt    DateTime      @default(now())
+  updatedAt    DateTime      @updatedAt
+  projects     Project[]
+  content      ContentItem[]
+  invoices     Invoice[]
+  tasks        Task[]
+}
+
+// ── A project / engagement for a client ──────────────────────────────
+model Project {
+  id        String    @id @default(cuid())
+  clientId  String
+  client    Client    @relation(fields: [clientId], references: [id], onDelete: Cascade)
   name      String
-  email     String
-  phone     String?
-  company   String?
-  service   String? // which service they're interested in
-  budget    String? // optional budget range
-  message   String
-  source    String   @default("contact_form") // contact_form | ai_chat | other
-  status    String   @default("new") // new | contacted | won | lost
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  type      String    @default("campaign") // campaign | retainer | one-off
+  status    String    @default("planning") // planning | active | review | complete | on-hold
+  startDate DateTime?
+  dueDate   DateTime?
+  budget    Int       @default(0)
+  notes     String?
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  tasks     Task[]
+}
+
+// ── A piece of content (idea → drafting → scheduled → published) ──────
+model ContentItem {
+  id           String    @id @default(cuid())
+  clientId     String
+  client       Client    @relation(fields: [clientId], references: [id], onDelete: Cascade)
+  platform     String    @default("instagram") // instagram | tiktok | youtube | facebook | other
+  title        String
+  caption      String?
+  status       String    @default("idea") // idea | drafting | scheduled | published
+  scheduledFor DateTime? // null = idea backlog
+  assetUrl     String?
+  notes        String?
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @updatedAt
+}
+
+// ── An invoice for a client ──────────────────────────────────────────
+model Invoice {
+  id        String    @id @default(cuid())
+  clientId  String
+  client    Client    @relation(fields: [clientId], references: [id], onDelete: Cascade)
+  number    String
+  amount    Int       @default(0) // whole dollars
+  status    String    @default("draft") // draft | sent | paid | overdue
+  issueDate DateTime?
+  dueDate   DateTime?
+  notes     String?
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+}
+
+// ── A to-do, optionally tied to a client/project and assigned ────────
+model Task {
+  id         String    @id @default(cuid())
+  title      String
+  done       Boolean   @default(false)
+  dueDate    DateTime?
+  clientId   String?
+  client     Client?   @relation(fields: [clientId], references: [id], onDelete: SetNull)
+  projectId  String?
+  project    Project?  @relation(fields: [projectId], references: [id], onDelete: SetNull)
+  assigneeId String?
+  assignee   User?     @relation("AssignedTasks", fields: [assigneeId], references: [id], onDelete: SetNull)
+  createdAt  DateTime  @default(now())
 }
