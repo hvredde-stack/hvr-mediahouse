@@ -12,7 +12,7 @@ const socialLinks = [
   { href: site.socials.facebook, label: "Facebook", Icon: FaFacebookF },
   { href: site.socials.tiktok, label: "TikTok", Icon: FaTiktok },
   { href: site.socials.youtube, label: "YouTube", Icon: FaYoutube },
-];
+].filter((s) => s.href); // only render platforms that have a real profile URL
 
 const footerLinks = [
   { href: "#services", label: "Services" },

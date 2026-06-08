@@ -26,10 +26,13 @@ export const site = {
   currency: "$",
 
   socials: {
-    instagram: "https://instagram.com/",
-    facebook: "https://facebook.com/",
-    tiktok: "https://tiktok.com/",
-    youtube: "https://youtube.com/",
+    // Real profile URLs. Leave a platform as "" until its account exists —
+    // empty values are hidden from the footer and SEO rather than linking a
+    // dead homepage. Just paste a URL here to make that icon appear.
+    instagram: "https://www.instagram.com/hvrmediahouse/",
+    facebook: "",
+    tiktok: "",
+    youtube: "",
   },
 } as const;
 

@@ -79,7 +79,7 @@ const jsonLd = {
     site.socials.facebook,
     site.socials.tiktok,
     site.socials.youtube,
-  ],
+  ].filter(Boolean),
 };
 
 export default function RootLayout({
