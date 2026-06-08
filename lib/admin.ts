@@ -58,6 +58,17 @@ export function fdate(d: Date | string | null | undefined): string {
   });
 }
 
+/** "Jun 2026" for a month stored as the first-of-month in UTC. */
+export function monthLabel(d: Date | string | null | undefined): string {
+  if (!d) return "—";
+  const date = typeof d === "string" ? new Date(d) : d;
+  return date.toLocaleDateString("en-US", {
+    month: "short",
+    year: "numeric",
+    timeZone: "UTC",
+  });
+}
+
 /** value for an <input type="date"> */
 export function dateInput(d: Date | string | null | undefined): string {
   if (!d) return "";

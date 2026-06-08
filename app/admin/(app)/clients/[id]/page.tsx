@@ -10,6 +10,7 @@ import {
   CLIENT_STATUSES,
 } from "@/lib/admin";
 import { SubmitSelect, ConfirmButton } from "@/components/admin/Forms";
+import { ReportCharts } from "@/components/ReportCharts";
 import {
   updateClientStatus,
   deleteClient,
@@ -37,6 +38,7 @@ export default async function ClientDetail({
         orderBy: { createdAt: "asc" },
         select: { id: true, name: true, email: true },
       },
+      reports: { orderBy: { month: "asc" } },
     },
   });
   if (!client) notFound();
@@ -157,6 +159,17 @@ export default async function ClientDetail({
             Add login
           </button>
         </form>
+      </section>
+
+      {/* Performance */}
+      <section>
+        <div className="mb-3 flex items-center justify-between">
+          <h2 className="font-display text-lg font-semibold">Performance</h2>
+          <Link href="/admin/reports" className="text-sm font-medium text-brand">
+            Add report
+          </Link>
+        </div>
+        <ReportCharts reports={client.reports} />
       </section>
 
       <div className="grid gap-6 lg:grid-cols-2">
