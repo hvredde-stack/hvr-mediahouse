@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
+import { sendLeadNotification } from "@/lib/notify";
 
 // Prisma needs the Node.js runtime (not Edge).
 export const runtime = "nodejs";
@@ -53,8 +54,13 @@ export async function POST(req: Request) {
       },
     });
 
-    // ── Future: send an email / Slack notification here ─────────────
-    // e.g. with Resend, using process.env.RESEND_API_KEY.
+    // Real-time alert to the owner. Non-blocking by design: a notification
+    // failure must never fail the lead capture (it's already saved).
+    try {
+      await sendLeadNotification(lead);
+    } catch (err) {
+      console.error("[contact] lead notification failed:", err);
+    }
 
     return NextResponse.json({ ok: true, id: lead.id });
   } catch (err) {

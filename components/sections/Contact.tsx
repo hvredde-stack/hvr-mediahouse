@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { Send, CheckCircle2, Mail, Phone, MapPin, Loader2 } from "lucide-react";
+import { FaInstagram } from "react-icons/fa6";
 import { site, serviceOptions, budgetOptions } from "@/lib/site";
 import { Reveal } from "../Reveal";
 
@@ -72,7 +73,30 @@ export function Contact() {
                 <MapPin size={18} className="text-brand" />
                 {site.location}
               </div>
+              {site.socials.instagram && (
+                <a
+                  href={site.socials.instagram}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="group flex items-center gap-3 text-fg transition-colors hover:text-brand"
+                >
+                  <FaInstagram size={18} className="text-brand" />
+                  Prefer Instagram? DM us
+                </a>
+              )}
             </div>
+
+            <p className="mt-8 text-sm text-muted">
+              Rather not fill a form?{" "}
+              <a
+                href={site.socials.instagram}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="font-semibold text-brand hover:underline"
+              >
+                Message us on Instagram →
+              </a>
+            </p>
           </Reveal>
 
           {/* Right: the form */}
