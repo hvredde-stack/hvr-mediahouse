@@ -11,6 +11,7 @@ import {
   dateOrNull,
   CLIENT_STATUSES,
 } from "@/lib/admin";
+import { hashPassword } from "@/lib/auth";
 
 export async function createClient(fd: FormData) {
   await requireUser();
@@ -57,4 +58,34 @@ export async function deleteClient(fd: FormData) {
   }
   revalidatePath("/admin/clients");
   redirect("/admin/clients");
+}
+
+/** Give a client a portal login (a User with role "client" tied to them). */
+export async function createClientUser(fd: FormData) {
+  await requireUser();
+  const clientId = str(fd, "clientId");
+  const name = str(fd, "name");
+  const email = str(fd, "email").toLowerCase();
+  const password = str(fd, "password");
+  if (!clientId || !name || !email || password.length < 8) return;
+  await prisma.user
+    .create({
+      data: {
+        name,
+        email,
+        role: "client",
+        clientId,
+        passwordHash: hashPassword(password),
+      },
+    })
+    .catch(() => {}); // ignore duplicate email
+  revalidatePath(`/admin/clients/${clientId}`);
+}
+
+export async function deleteClientUser(fd: FormData) {
+  await requireUser();
+  const id = str(fd, "id");
+  const clientId = str(fd, "clientId");
+  if (id) await prisma.user.delete({ where: { id } }).catch(() => {});
+  revalidatePath(`/admin/clients/${clientId}`);
 }

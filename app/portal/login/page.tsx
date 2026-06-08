@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation";
 import { Lock, Loader2 } from "lucide-react";
 import { Logo } from "@/components/Logo";
 
-export default function AdminLogin() {
+export default function PortalLogin() {
   const router = useRouter();
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
@@ -14,7 +14,6 @@ export default function AdminLogin() {
     e.preventDefault();
     setLoading(true);
     setError("");
-
     const data = Object.fromEntries(new FormData(e.currentTarget).entries());
     try {
       const res = await fetch("/api/admin/login", {
@@ -23,9 +22,7 @@ export default function AdminLogin() {
         body: JSON.stringify(data),
       });
       const body = await res.json().catch(() => ({}));
-      if (!res.ok) {
-        throw new Error(body.error || "Login failed.");
-      }
+      if (!res.ok) throw new Error(body.error || "Login failed.");
       router.push(body.role === "client" ? "/portal" : "/admin");
       router.refresh();
     } catch (err) {
@@ -46,8 +43,12 @@ export default function AdminLogin() {
               <Lock size={18} />
             </span>
             <div>
-              <h1 className="font-display text-xl font-semibold">Admin login</h1>
-              <p className="text-sm text-muted">Sign in to view your leads</p>
+              <h1 className="font-display text-xl font-semibold">
+                Client portal
+              </h1>
+              <p className="text-sm text-muted">
+                Review &amp; approve your content
+              </p>
             </div>
           </div>
 
@@ -60,7 +61,7 @@ export default function AdminLogin() {
                 required
                 autoFocus
                 autoComplete="email"
-                className="w-full rounded-xl border border-border bg-bg-2 px-4 py-3 text-fg focus:border-brand-purple/60 focus:outline-none"
+                className="w-full rounded-xl border border-border bg-bg-2 px-4 py-3 text-fg focus:border-brand/60 focus:outline-none"
               />
             </div>
             <div>
@@ -71,7 +72,8 @@ export default function AdminLogin() {
                 name="password"
                 type="password"
                 required
-                className="w-full rounded-xl border border-border bg-bg-2 px-4 py-3 text-fg focus:border-brand-purple/60 focus:outline-none"
+                autoComplete="current-password"
+                className="w-full rounded-xl border border-border bg-bg-2 px-4 py-3 text-fg focus:border-brand/60 focus:outline-none"
               />
             </div>
 
@@ -97,10 +99,7 @@ export default function AdminLogin() {
           </form>
         </div>
         <p className="mt-6 text-center text-xs text-muted">
-          ← Back to{" "}
-          <a href="/" className="text-fg hover:underline">
-            the website
-          </a>
+          Need access? Ask your account manager at HVR Media House.
         </p>
       </div>
     </main>

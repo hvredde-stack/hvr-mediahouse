@@ -21,7 +21,7 @@ export async function POST(req: Request) {
     );
   }
 
-  const res = NextResponse.json({ ok: true });
+  const res = NextResponse.json({ ok: true, role: user.role });
   res.cookies.set(ADMIN_COOKIE, createSessionToken(user.id), {
     httpOnly: true,
     sameSite: "lax",

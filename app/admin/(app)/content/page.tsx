@@ -85,6 +85,8 @@ type Item = {
   title: string;
   platform: string;
   status: string;
+  approval: string;
+  clientComment: string | null;
   scheduledFor: Date | null;
   assetUrl: string | null;
   clientId: string;
@@ -115,6 +117,17 @@ function Section({ title, items }: { title: string; items: Item[] }) {
                   <Link href={`/admin/clients/${c.clientId}`} className="text-xs text-muted hover:text-brand">
                     {c.client.name}
                   </Link>
+                  {c.approval === "approved" && (
+                    <span className="mt-0.5 block text-xs font-medium text-emerald-600">
+                      Client approved
+                    </span>
+                  )}
+                  {c.approval === "changes" && (
+                    <span className="mt-0.5 block text-xs font-medium text-amber-600">
+                      Changes requested
+                      {c.clientComment ? `: ${c.clientComment}` : ""}
+                    </span>
+                  )}
                 </td>
                 <td className="px-4 py-3 capitalize text-muted">{c.platform}</td>
                 <td className="px-4 py-3 text-muted">{fdate(c.scheduledFor)}</td>

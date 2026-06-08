@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { ArrowLeft, Mail, Phone, Trash2 } from "lucide-react";
+import { ArrowLeft, Mail, Phone, Trash2, KeyRound } from "lucide-react";
 import { prisma } from "@/lib/prisma";
 import {
   money,
@@ -10,7 +10,15 @@ import {
   CLIENT_STATUSES,
 } from "@/lib/admin";
 import { SubmitSelect, ConfirmButton } from "@/components/admin/Forms";
-import { updateClientStatus, deleteClient } from "../actions";
+import {
+  updateClientStatus,
+  deleteClient,
+  createClientUser,
+  deleteClientUser,
+} from "../actions";
+
+const IN =
+  "w-full rounded-lg border border-border bg-bg-2 px-3 py-2 text-sm focus:border-brand focus:outline-none";
 
 export default async function ClientDetail({
   params,
@@ -25,6 +33,10 @@ export default async function ClientDetail({
       content: { orderBy: [{ scheduledFor: "asc" }, { createdAt: "desc" }] },
       invoices: { orderBy: { createdAt: "desc" } },
       tasks: { where: { done: false }, orderBy: { createdAt: "desc" } },
+      users: {
+        orderBy: { createdAt: "asc" },
+        select: { id: true, name: true, email: true },
+      },
     },
   });
   if (!client) notFound();
@@ -98,6 +110,54 @@ export default async function ClientDetail({
         <Stat label="Outstanding" value={money(outstanding)} />
         <Stat label="Open tasks" value={String(client.tasks.length)} />
       </div>
+
+      {/* Portal access */}
+      <section className="matte rounded-2xl p-5">
+        <div className="flex items-center gap-2">
+          <KeyRound size={16} className="text-brand" />
+          <h2 className="font-display text-lg font-semibold">Portal access</h2>
+        </div>
+        <p className="mt-1 text-xs text-muted">
+          Logins for this client to review &amp; approve content at /portal.
+        </p>
+
+        {client.users.length > 0 && (
+          <ul className="mt-3 divide-y divide-border">
+            {client.users.map((u) => (
+              <li key={u.id} className="flex items-center justify-between py-2">
+                <div>
+                  <div className="text-sm font-medium">{u.name}</div>
+                  <div className="text-xs text-muted">{u.email}</div>
+                </div>
+                <form action={deleteClientUser}>
+                  <input type="hidden" name="id" value={u.id} />
+                  <input type="hidden" name="clientId" value={client.id} />
+                  <ConfirmButton
+                    message={`Remove portal access for ${u.email}?`}
+                    ariaLabel="Remove access"
+                    className="text-muted hover:text-red-600"
+                  >
+                    <Trash2 size={15} />
+                  </ConfirmButton>
+                </form>
+              </li>
+            ))}
+          </ul>
+        )}
+
+        <form
+          action={createClientUser}
+          className="mt-4 grid gap-2 sm:grid-cols-2 lg:grid-cols-4"
+        >
+          <input type="hidden" name="clientId" value={client.id} />
+          <input name="name" required placeholder="Contact name *" className={IN} />
+          <input name="email" type="email" required placeholder="Login email *" className={IN} />
+          <input name="password" type="password" required minLength={8} placeholder="Password (min 8) *" className={IN} autoComplete="new-password" />
+          <button className="gradient-bg rounded-full px-4 py-2 text-sm font-semibold text-white">
+            Add login
+          </button>
+        </form>
+      </section>
 
       <div className="grid gap-6 lg:grid-cols-2">
         <Panel title="Projects" href="/admin/projects" empty="No projects yet">

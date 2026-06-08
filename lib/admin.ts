@@ -1,10 +1,11 @@
 import { redirect } from "next/navigation";
 import { getSessionUser, type SessionUser } from "@/lib/auth";
 
-/** Page-level guard: returns the user or redirects to the login. */
+/** Page-level guard for the team admin: returns the user or redirects. */
 export async function requireUser(): Promise<SessionUser> {
   const user = await getSessionUser();
   if (!user) redirect("/admin/login");
+  if (user.role === "client") redirect("/portal"); // clients use the portal
   return user;
 }
 

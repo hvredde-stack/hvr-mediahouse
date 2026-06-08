@@ -74,6 +74,7 @@ export type SessionUser = {
   name: string;
   email: string;
   role: string;
+  clientId: string | null;
 };
 
 /** Loads the logged-in team member from the request cookie, or null. */
@@ -85,7 +86,7 @@ export async function getSessionUser(): Promise<SessionUser | null> {
   // error boundary rather than silently logging a valid session out.
   const user = await prisma.user.findUnique({
     where: { id: parsed.uid },
-    select: { id: true, name: true, email: true, role: true },
+    select: { id: true, name: true, email: true, role: true, clientId: true },
   });
   return user ?? null;
 }
@@ -105,7 +106,13 @@ export async function authenticate(
       where: { email: email.toLowerCase().trim() },
     });
     if (!user || !verifyPassword(password, user.passwordHash)) return null;
-    return { id: user.id, name: user.name, email: user.email, role: user.role };
+    return {
+      id: user.id,
+      name: user.name,
+      email: user.email,
+      role: user.role,
+      clientId: user.clientId,
+    };
   } catch {
     return null;
   }

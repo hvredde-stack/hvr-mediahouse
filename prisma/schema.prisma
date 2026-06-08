@@ -17,7 +17,9 @@ model User {
   name         String
   email        String   @unique
   passwordHash String
-  role         String   @default("member") // owner | admin | member
+  role         String   @default("member") // owner | admin | member | client
+  clientId     String? // set only for portal (client) logins
+  client       Client?  @relation("ClientUsers", fields: [clientId], references: [id], onDelete: Cascade)
   createdAt    DateTime @default(now())
   tasks        Task[]   @relation("AssignedTasks")
 }
@@ -58,6 +60,7 @@ model Client {
   content      ContentItem[]
   invoices     Invoice[]
   tasks        Task[]
+  users        User[]        @relation("ClientUsers")
 }
 
 // ── A project / engagement for a client ──────────────────────────────
@@ -85,10 +88,12 @@ model ContentItem {
   platform     String    @default("instagram") // instagram | tiktok | youtube | facebook | other
   title        String
   caption      String?
-  status       String    @default("idea") // idea | drafting | scheduled | published
-  scheduledFor DateTime? // null = idea backlog
-  assetUrl     String?
-  notes        String?
+  status        String    @default("idea") // idea | drafting | scheduled | published
+  approval      String    @default("pending") // pending | approved | changes
+  clientComment String? // client's feedback when requesting changes
+  scheduledFor  DateTime? // null = idea backlog
+  assetUrl      String?
+  notes         String?
   createdAt    DateTime  @default(now())
   updatedAt    DateTime  @updatedAt
 }
