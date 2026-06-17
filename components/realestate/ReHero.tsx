@@ -14,6 +14,9 @@ import {
   Heart,
   Bookmark,
   TrendingUp,
+  Signal,
+  Wifi,
+  BatteryFull,
 } from "lucide-react";
 import type { ReactNode } from "react";
 import { realEstate } from "@/lib/realestate";
@@ -138,13 +141,36 @@ export function ReHero() {
             transition={{ duration: 0.7, delay: 0.2, ease: "easeOut" }}
             className={`relative mx-auto w-[300px] sm:w-[330px] ${reduce ? "" : "animate-float-slow"}`}
           >
-            {/* phone frame */}
-            <div className="glass relative rounded-[2.9rem] p-2.5 shadow-2xl">
-              <div className="relative overflow-hidden rounded-[2.4rem] bg-bg">
-                {/* dynamic island */}
-                <div className="absolute left-1/2 top-2.5 z-30 h-5 w-20 -translate-x-1/2 rounded-full bg-black/90" />
+            {/* phone frame — graphite body, bright screen */}
+            <div
+              className="relative rounded-[3rem] p-[11px] shadow-[0_35px_70px_-20px_rgba(70,40,20,0.55)]"
+              style={{ background: "linear-gradient(155deg,#46392f 0%,#2a211a 45%,#15100a 100%)" }}
+            >
+              {/* metallic edge highlight */}
+              <div
+                aria-hidden
+                className="pointer-events-none absolute inset-0 rounded-[3rem] ring-1 ring-white/10"
+              />
+              {/* side buttons */}
+              <div aria-hidden className="absolute -left-[2.5px] top-[7rem] h-7 w-[3px] rounded-l-sm bg-[#15100a]" />
+              <div aria-hidden className="absolute -left-[2.5px] top-[9.5rem] h-12 w-[3px] rounded-l-sm bg-[#15100a]" />
+              <div aria-hidden className="absolute -right-[2.5px] top-[8.5rem] h-16 w-[3px] rounded-r-sm bg-[#15100a]" />
 
-                <div className="px-4 pb-5 pt-10">
+              <div className="relative overflow-hidden rounded-[2.3rem] bg-white">
+                {/* dynamic island */}
+                <div className="absolute left-1/2 top-2.5 z-30 h-[26px] w-[84px] -translate-x-1/2 rounded-full bg-black" />
+
+                {/* status bar */}
+                <div className="flex items-center justify-between px-6 pt-3 text-[11px] font-bold text-fg">
+                  <span>9:41</span>
+                  <span className="flex items-center gap-1.5 text-fg">
+                    <Signal size={13} />
+                    <Wifi size={13} />
+                    <BatteryFull size={18} />
+                  </span>
+                </div>
+
+                <div className="px-4 pb-5 pt-3">
                   {/* header row */}
                   <div className="mb-4 flex items-center gap-3">
                     <span className="grid h-11 w-11 place-items-center rounded-full bg-brand text-base font-bold text-white">
@@ -183,7 +209,7 @@ export function ReHero() {
                   </div>
 
                   {/* engagement footer */}
-                  <div className="mt-4 flex items-center justify-between rounded-2xl bg-white px-4 py-3 text-fg ring-1 ring-black/5">
+                  <div className="mt-4 flex items-center justify-between rounded-2xl bg-bg-2 px-4 py-3 text-fg ring-1 ring-black/5">
                     <span className="inline-flex items-center gap-1.5 text-sm font-semibold">
                       <Heart size={15} className="text-coral" fill="currentColor" /> 12.4k
                     </span>
