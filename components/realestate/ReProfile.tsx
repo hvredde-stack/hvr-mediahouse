@@ -118,13 +118,21 @@ export function ReProfile() {
                   </li>
                 ))}
               </ul>
-              <Link
-                href="/#contact"
-                className="gradient-bg group mt-8 inline-flex items-center gap-2 rounded-full px-7 py-3.5 text-sm font-semibold text-white shadow-lg shadow-brand-strong/25 transition-transform hover:scale-[1.03]"
-              >
-                {profile.cta}
-                <ArrowUpRight size={16} className="transition-transform group-hover:translate-x-0.5" />
-              </Link>
+              <div className="mt-8 flex flex-col items-start gap-4 sm:flex-row sm:items-center">
+                <Link
+                  href="/#contact"
+                  className="gradient-bg group inline-flex items-center gap-2 rounded-full px-7 py-3.5 text-sm font-semibold text-white shadow-lg shadow-brand-strong/25 transition-transform hover:scale-[1.03]"
+                >
+                  {profile.cta}
+                  <ArrowUpRight size={16} className="transition-transform group-hover:translate-x-0.5" />
+                </Link>
+                <Link
+                  href="/realestate/profile"
+                  className="inline-flex items-center gap-1.5 text-sm font-semibold text-brand hover:underline"
+                >
+                  See a full live example <ArrowUpRight size={15} />
+                </Link>
+              </div>
             </div>
           </Reveal>
         </div>
