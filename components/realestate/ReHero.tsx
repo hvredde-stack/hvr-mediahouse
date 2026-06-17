@@ -120,77 +120,95 @@ export function ReHero() {
           </motion.p>
         </div>
 
-        {/* Animated feed visual */}
+        {/* Animated feed visual — inside a phone */}
         <div className="relative z-10">
+          {/* ambient glow under the phone */}
+          <div
+            aria-hidden
+            className="pointer-events-none absolute left-1/2 top-1/2 -z-10 h-[26rem] w-[26rem] -translate-x-1/2 -translate-y-1/2 rounded-full opacity-70 blur-3xl"
+            style={{
+              background:
+                "radial-gradient(circle at 50% 45%, rgba(194,96,63,0.3), rgba(216,138,95,0.18) 50%, transparent 72%)",
+            }}
+          />
+
           <motion.div
             initial={{ opacity: 0, y: 28 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, delay: 0.2, ease: "easeOut" }}
-            className={reduce ? "" : "animate-float-slow"}
+            className={`relative mx-auto w-[300px] sm:w-[330px] ${reduce ? "" : "animate-float-slow"}`}
           >
-            <div className="glass relative mx-auto max-w-md rounded-[2rem] p-5">
-              {/* header row */}
-              <div className="mb-4 flex items-center gap-3">
-                <span className="grid h-11 w-11 place-items-center rounded-full bg-brand text-base font-bold text-white">
-                  JR
-                </span>
-                <div className="leading-tight">
-                  <div className="font-display text-sm font-bold text-fg">@your.brand</div>
-                  <div className="text-xs text-muted">Realtor · GTA &amp; Durham</div>
-                </div>
-                <span className="ml-auto rounded-full bg-fg px-3 py-1.5 text-xs font-semibold text-white">
-                  Follow
-                </span>
-              </div>
+            {/* phone frame */}
+            <div className="glass relative rounded-[2.9rem] p-2.5 shadow-2xl">
+              <div className="relative overflow-hidden rounded-[2.4rem] bg-bg">
+                {/* dynamic island */}
+                <div className="absolute left-1/2 top-2.5 z-30 h-5 w-20 -translate-x-1/2 rounded-full bg-black/90" />
 
-              {/* tile grid */}
-              <div className="grid grid-cols-3 gap-2">
-                {tiles.map((t, i) => (
-                  <motion.div
-                    key={i}
-                    initial={{ opacity: 0, scale: 0.6 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    transition={{ duration: 0.45, delay: 0.5 + i * 0.07, ease: [0.34, 1.56, 0.64, 1] }}
-                    className="relative grid aspect-square place-items-center overflow-hidden rounded-xl"
-                    style={{ background: t.bg, color: t.fg }}
-                  >
-                    <span
-                      className="pointer-events-none absolute inset-0"
-                      style={{ background: "linear-gradient(140deg, rgba(255,255,255,0.35), transparent 50%)" }}
-                    />
-                    <span className="relative z-10 flex flex-col items-center gap-1">
-                      {t.icon}
-                      <span className="text-[0.62rem] font-semibold opacity-90">{t.label}</span>
+                <div className="px-4 pb-5 pt-10">
+                  {/* header row */}
+                  <div className="mb-4 flex items-center gap-3">
+                    <span className="grid h-11 w-11 place-items-center rounded-full bg-brand text-base font-bold text-white">
+                      JR
                     </span>
-                  </motion.div>
-                ))}
-              </div>
+                    <div className="leading-tight">
+                      <div className="font-display text-sm font-bold text-fg">@your.brand</div>
+                      <div className="text-xs text-muted">Realtor · GTA &amp; Durham</div>
+                    </div>
+                    <span className="ml-auto rounded-full bg-fg px-3 py-1.5 text-xs font-semibold text-white">
+                      Follow
+                    </span>
+                  </div>
 
-              {/* engagement footer */}
-              <div className="mt-4 flex items-center justify-between rounded-2xl bg-white/70 px-4 py-3 text-fg ring-1 ring-black/5">
-                <span className="inline-flex items-center gap-1.5 text-sm font-semibold">
-                  <Heart size={15} className="text-coral" fill="currentColor" /> 12.4k
-                </span>
-                <span className="inline-flex items-center gap-1.5 text-sm font-semibold">
-                  <Bookmark size={15} className="text-brand" fill="currentColor" /> 3.4k
-                </span>
-                <span className="inline-flex items-center gap-1.5 text-sm font-semibold text-sage">
-                  <TrendingUp size={15} /> +312%
-                </span>
+                  {/* tile grid */}
+                  <div className="grid grid-cols-3 gap-2">
+                    {tiles.map((t, i) => (
+                      <motion.div
+                        key={i}
+                        initial={{ opacity: 0, scale: 0.6 }}
+                        animate={{ opacity: 1, scale: 1 }}
+                        transition={{ duration: 0.45, delay: 0.5 + i * 0.07, ease: [0.34, 1.56, 0.64, 1] }}
+                        className="relative grid aspect-square place-items-center overflow-hidden rounded-xl"
+                        style={{ background: t.bg, color: t.fg }}
+                      >
+                        <span
+                          className="pointer-events-none absolute inset-0"
+                          style={{ background: "linear-gradient(140deg, rgba(255,255,255,0.35), transparent 50%)" }}
+                        />
+                        <span className="relative z-10 flex flex-col items-center gap-1">
+                          {t.icon}
+                          <span className="text-[0.62rem] font-semibold opacity-90">{t.label}</span>
+                        </span>
+                      </motion.div>
+                    ))}
+                  </div>
+
+                  {/* engagement footer */}
+                  <div className="mt-4 flex items-center justify-between rounded-2xl bg-white px-4 py-3 text-fg ring-1 ring-black/5">
+                    <span className="inline-flex items-center gap-1.5 text-sm font-semibold">
+                      <Heart size={15} className="text-coral" fill="currentColor" /> 12.4k
+                    </span>
+                    <span className="inline-flex items-center gap-1.5 text-sm font-semibold">
+                      <Bookmark size={15} className="text-brand" fill="currentColor" /> 3.4k
+                    </span>
+                    <span className="inline-flex items-center gap-1.5 text-sm font-semibold text-sage">
+                      <TrendingUp size={15} /> +312%
+                    </span>
+                  </div>
+                </div>
               </div>
             </div>
           </motion.div>
 
           {/* floating chips */}
           <Chip
-            className="-left-3 top-8 hidden sm:flex"
+            className="-left-3 top-12 hidden sm:flex lg:-left-6"
             delay="0.3s"
             tone="bg-brand-soft text-brand"
             value="+1,180"
             label="New followers"
           />
           <Chip
-            className="-right-2 bottom-10 hidden sm:flex"
+            className="-right-2 bottom-14 hidden sm:flex lg:-right-5"
             delay="1.1s"
             tone="bg-green-100 text-green-600"
             value="8 reels"

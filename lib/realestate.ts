@@ -19,6 +19,44 @@ export const realEstate = {
     secondaryCta: "See the packages",
   },
 
+  /* Why social media matters — especially in real estate. */
+  why: {
+    eyebrow: "Why it matters",
+    title: "Your next client is already scrolling.",
+    subtitle:
+      "Buyers and sellers research online — and on social — long before they ever call an agent. If you're not visible there, you're not on the shortlist.",
+    stats: [
+      { value: "97%", label: "of buyers search online during their home hunt" },
+      { value: "51%", label: "find the home they buy on the web first" },
+      { value: "76%", label: "search from a mobile phone — where social lives" },
+      { value: "#1", label: "social media: a top source of new agent leads" },
+    ],
+    points: [
+      {
+        icon: "Search",
+        title: "Sellers vet you first",
+        text: "Before they sign, they look you up. A strong feed is your modern first impression.",
+      },
+      {
+        icon: "Smartphone",
+        title: "Attention lives on social",
+        text: "Your market scrolls Instagram, TikTok and Facebook every day — be where they already are.",
+      },
+      {
+        icon: "Home",
+        title: "Listings travel further",
+        text: "Video and social content put your listings in front of far more of the right people.",
+      },
+      {
+        icon: "Trophy",
+        title: "Visibility wins listings",
+        text: "When you're the agent people see everywhere, you become the obvious choice.",
+      },
+    ],
+    footnote:
+      "Directional industry figures (incl. NAR home-buyer research), shown to illustrate the trend.",
+  },
+
   /* The mindset shift — the core idea, shown as a side-by-side. */
   shift: {
     eyebrow: "The shift",
@@ -136,6 +174,62 @@ export const realEstate = {
     ],
   },
 
+  /* Premium: the agent's own website — a virtual-LinkedIn profile that builds trust. */
+  profile: {
+    eyebrow: "Premium · Your own website",
+    title: "More than a feed — your own site that sells you.",
+    subtitle:
+      "A polished personal website — your story, your track record, your process — working like a virtual LinkedIn for your real-estate brand. It's what sellers find when they Google your name, built to win their trust.",
+    availability: "Included in Authority · available as an add-on on any plan",
+    initials: "JR",
+    name: "Jordan Reid",
+    role: "Realtor® · GTA & Durham Region",
+    badge: "Top 1% Producer",
+    ctaMock: "Book a valuation",
+    stats: [
+      { value: "12", label: "Years in the market" },
+      { value: "480+", label: "Homes sold" },
+      { value: "$320M", label: "In sales volume" },
+      { value: "4.9★", label: "From 210 reviews" },
+    ],
+    aboutLabel: "About",
+    bio: "Born and raised in Durham, I've helped 480+ families buy and sell across the GTA over 12 years — straight talk, sharp marketing, and a process that takes the stress out of your move.",
+    processLabel: "How I work",
+    steps: [
+      "Free home valuation + a clear game plan",
+      "Pro photo, video & social marketing",
+      "Negotiate hard, then close it clean",
+    ],
+    review: {
+      text: "Sold our home in 9 days, over asking. Jordan's marketing was on another level.",
+      author: "The Patels · Whitby",
+    },
+    trustTitle: "Why it wins you listings",
+    trust: [
+      {
+        icon: "Search",
+        title: "Owns your name in Google",
+        text: "When a seller searches you before listing, this is the first thing they find.",
+      },
+      {
+        icon: "BookUser",
+        title: "Your story, not just listings",
+        text: "Years in the business, homes sold and the wins that build instant credibility.",
+      },
+      {
+        icon: "ListChecks",
+        title: "A clear, confident process",
+        text: "Show exactly how you market and sell — so sellers know they're in good hands.",
+      },
+      {
+        icon: "Star",
+        title: "Social proof, front and centre",
+        text: "Reviews and results that do the convincing before you even meet.",
+      },
+    ],
+    cta: "Get your agent website",
+  },
+
   /* Packages. Prices are monthly ranges in the site currency (CAD). */
   packages: {
     eyebrow: "Retainer packages",
@@ -222,6 +316,7 @@ export const realEstate = {
     addons: [
       "Extra reel",
       "Agent headshot / branding shoot",
+      "Personal agent website / profile",
       "Listing landing page",
       "Virtual staging",
       "Drone-only add-on",

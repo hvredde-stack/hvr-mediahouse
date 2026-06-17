@@ -3,10 +3,12 @@ import { site } from "@/lib/site";
 import { RealEstateNav } from "@/components/realestate/RealEstateNav";
 import { Footer } from "@/components/Footer";
 import { ReHero } from "@/components/realestate/ReHero";
+import { ReWhy } from "@/components/realestate/ReWhy";
 import { ReShift } from "@/components/realestate/ReShift";
 import { ReMultiplier } from "@/components/realestate/ReMultiplier";
 import { ReModel } from "@/components/realestate/ReModel";
 import { ReDeliverables } from "@/components/realestate/ReDeliverables";
+import { ReProfile } from "@/components/realestate/ReProfile";
 import { RePackages } from "@/components/realestate/RePackages";
 import { ReResume } from "@/components/realestate/ReResume";
 import { ReProcess } from "@/components/realestate/ReProcess";
@@ -83,10 +85,12 @@ export default function RealEstatePage() {
       <RealEstateNav />
       <main>
         <ReHero />
+        <ReWhy />
         <ReShift />
         <ReMultiplier />
         <ReModel />
         <ReDeliverables />
+        <ReProfile />
         <RePackages />
         <ReResume />
         <ReProcess />
