@@ -15,11 +15,12 @@ const socialLinks = [
 ].filter((s) => s.href); // only render platforms that have a real profile URL
 
 const footerLinks = [
-  { href: "#services", label: "Services" },
-  { href: "#work", label: "Work" },
-  { href: "#pricing", label: "Pricing" },
-  { href: "#testimonials", label: "Reviews" },
-  { href: "#contact", label: "Contact" },
+  { href: "/#services", label: "Services" },
+  { href: "/#work", label: "Work" },
+  { href: "/#pricing", label: "Pricing" },
+  { href: "/realestate", label: "Real Estate" },
+  { href: "/#testimonials", label: "Reviews" },
+  { href: "/#contact", label: "Contact" },
 ];
 
 export function Footer() {
