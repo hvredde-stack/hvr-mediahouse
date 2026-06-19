@@ -71,7 +71,48 @@ model Client {
   voiceActive      Boolean  @default(false) @map("voice_active")
   twilioAccountSid String?  @map("twilio_account_sid") // BYO Twilio (Model B); null → shared account
   twilioAuthToken  String?  @map("twilio_auth_token") // Fernet-encrypted
+  voiceTranscribe  Boolean  @default(false) @map("voice_transcribe") // store full transcripts?
   agentNumbers     AgentNumber[]
+  voiceLeads       VoiceLead[]
+  voiceCalls       VoiceCall[]
+}
+
+// ── A lead captured by the voice agent (IG/ad form, or during a call) ────────
+model VoiceLead {
+  id        String      @id @default(cuid())
+  clientId  String      @map("client_id")
+  client    Client      @relation(fields: [clientId], references: [id], onDelete: Cascade)
+  name      String?
+  email     String?
+  phone     String
+  source    String      @default("instagram")
+  consent   Boolean     @default(false)
+  status    String      @default("new") // new | calling | called | booked | lost
+  createdAt DateTime    @default(now()) @map("created_at")
+  calls     VoiceCall[]
+
+  @@index([clientId])
+  @@map("voice_leads")
+}
+
+// ── One AI phone call: summary + outcome always; transcript only if enabled ──
+model VoiceCall {
+  id         String     @id @default(cuid())
+  clientId   String     @map("client_id")
+  client     Client     @relation(fields: [clientId], references: [id], onDelete: Cascade)
+  leadId     String?    @map("lead_id")
+  lead       VoiceLead? @relation(fields: [leadId], references: [id], onDelete: SetNull)
+  callSid    String?    @map("call_sid")
+  direction  String? // inbound | outbound
+  status     String     @default("in_progress") // in_progress | completed | failed
+  outcome    String? // booked | qualified | transferred | no_outcome
+  summary    String?
+  transcript Json? // null unless the client enabled full transcripts
+  startedAt  DateTime   @default(now()) @map("started_at")
+  endedAt    DateTime?  @map("ended_at")
+
+  @@index([clientId])
+  @@map("voice_calls")
 }
 
 // ── A phone number routed to a client's voice agent (a client may have many) ──

@@ -2,11 +2,12 @@
 
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
-import { CalendarCheck, LineChart, CreditCard, BookOpen, LogOut } from "lucide-react";
+import { CalendarCheck, LineChart, CreditCard, BookOpen, Phone, LogOut } from "lucide-react";
 import { Logo } from "@/components/Logo";
 
 const NAV = [
   { href: "/portal", label: "Content", Icon: CalendarCheck },
+  { href: "/portal/leads", label: "Leads & calls", Icon: Phone },
   { href: "/portal/knowledge", label: "Knowledge base", Icon: BookOpen },
   { href: "/portal/reports", label: "Reports", Icon: LineChart },
   { href: "/portal/invoices", label: "Invoices", Icon: CreditCard },
