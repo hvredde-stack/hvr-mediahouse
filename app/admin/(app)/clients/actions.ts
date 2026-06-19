@@ -89,3 +89,48 @@ export async function deleteClientUser(fd: FormData) {
   if (id) await prisma.user.delete({ where: { id } }).catch(() => {});
   revalidatePath(`/admin/clients/${clientId}`);
 }
+
+/** Configure a client's AI voice agent (persona, voice, slug, toggles). */
+export async function saveVoiceConfig(fd: FormData) {
+  await requireUser();
+  const id = str(fd, "id");
+  if (!id) return;
+  const slug = str(fd, "voiceSlug")
+    .toLowerCase()
+    .trim()
+    .replace(/[^a-z0-9-]+/g, "-")
+    .replace(/^-+|-+$/g, "");
+  await prisma.client
+    .update({
+      where: { id },
+      data: {
+        voiceSlug: slug || null,
+        voiceName: str(fd, "voiceName") || "Ara",
+        voicePrompt: strOrNull(fd, "voicePrompt"),
+        voiceActive: fd.get("voiceActive") != null,
+        voiceTranscribe: fd.get("voiceTranscribe") != null,
+        twilioAccountSid: strOrNull(fd, "twilioAccountSid"),
+      },
+    })
+    .catch(() => {}); // likely a duplicate slug — silently ignore (no inline errors yet)
+  revalidatePath(`/admin/clients/${id}`);
+}
+
+export async function addAgentNumber(fd: FormData) {
+  await requireUser();
+  const clientId = str(fd, "clientId");
+  const phoneNumber = str(fd, "phoneNumber").trim();
+  if (!clientId || !phoneNumber) return;
+  await prisma.agentNumber
+    .create({ data: { clientId, phoneNumber } })
+    .catch(() => {}); // ignore duplicate number
+  revalidatePath(`/admin/clients/${clientId}`);
+}
+
+export async function deleteAgentNumber(fd: FormData) {
+  await requireUser();
+  const id = str(fd, "id");
+  const clientId = str(fd, "clientId");
+  if (id) await prisma.agentNumber.delete({ where: { id } }).catch(() => {});
+  revalidatePath(`/admin/clients/${clientId}`);
+}

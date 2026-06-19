@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { ArrowLeft, Mail, Phone, Trash2, KeyRound } from "lucide-react";
+import { ArrowLeft, Mail, Phone, Trash2, KeyRound, Bot, Plus } from "lucide-react";
 import { prisma } from "@/lib/prisma";
 import {
   money,
@@ -10,13 +10,19 @@ import {
   CLIENT_STATUSES,
 } from "@/lib/admin";
 import { SubmitSelect, ConfirmButton } from "@/components/admin/Forms";
+import { CopyField } from "@/components/portal/CopyField";
 import { ReportCharts } from "@/components/ReportCharts";
 import {
   updateClientStatus,
   deleteClient,
   createClientUser,
   deleteClientUser,
+  saveVoiceConfig,
+  addAgentNumber,
+  deleteAgentNumber,
 } from "../actions";
+
+const GROK_VOICES = ["Ara", "Rex", "Sal", "Eve", "Leo"];
 
 const IN =
   "w-full rounded-lg border border-border bg-bg-2 px-3 py-2 text-sm focus:border-brand focus:outline-none";
@@ -39,11 +45,14 @@ export default async function ClientDetail({
         select: { id: true, name: true, email: true },
       },
       reports: { orderBy: { month: "asc" } },
+      agentNumbers: { orderBy: { createdAt: "asc" } },
     },
   });
   if (!client) notFound();
 
   const { paid, outstanding } = invoiceTotals(client.invoices);
+  const base = (process.env.VOICE_AGENT_URL ?? "https://hvr-voice-agent.onrender.com").replace(/\/$/, "");
+  const captureLink = client.voiceSlug ? `${base}/?tenant=${client.voiceSlug}` : null;
 
   return (
     <div className="space-y-6">
@@ -159,6 +168,118 @@ export default async function ClientDetail({
             Add login
           </button>
         </form>
+      </section>
+
+      {/* AI voice agent */}
+      <section className="matte rounded-2xl p-5">
+        <div className="flex items-center gap-2">
+          <Bot size={16} className="text-brand" />
+          <h2 className="font-display text-lg font-semibold">AI voice agent</h2>
+          {client.voiceActive ? (
+            <span className="rounded-full bg-emerald-100 px-2 py-0.5 text-xs font-medium text-emerald-700">
+              Active
+            </span>
+          ) : (
+            <span className="rounded-full bg-bg-2 px-2 py-0.5 text-xs text-muted">Off</span>
+          )}
+        </div>
+        <p className="mt-1 text-xs text-muted">
+          Persona, voice and phone routing for this client&apos;s AI agent.
+        </p>
+
+        <form action={saveVoiceConfig} className="mt-4 space-y-3">
+          <input type="hidden" name="id" value={client.id} />
+          <div className="grid gap-3 sm:grid-cols-2">
+            <label className="block">
+              <span className="text-xs font-medium text-muted">Slug (used in the lead link)</span>
+              <input name="voiceSlug" defaultValue={client.voiceSlug ?? ""} placeholder="e.g. reidgroup" className={IN} />
+            </label>
+            <label className="block">
+              <span className="text-xs font-medium text-muted">Voice</span>
+              <select name="voiceName" defaultValue={client.voiceName ?? "Ara"} className={IN}>
+                {GROK_VOICES.map((v) => (
+                  <option key={v} value={v}>{v}</option>
+                ))}
+              </select>
+            </label>
+          </div>
+          <label className="block">
+            <span className="text-xs font-medium text-muted">Agent persona / script</span>
+            <textarea
+              name="voicePrompt"
+              defaultValue={client.voicePrompt ?? ""}
+              rows={4}
+              placeholder="You are Ava, the assistant for [business]. Find out what the caller needs, answer using the knowledge base, and book a consultation. Keep replies to 1-2 short sentences."
+              className={`${IN} resize-y`}
+            />
+          </label>
+          <label className="block">
+            <span className="text-xs font-medium text-muted">
+              Twilio Account SID — only for bring-your-own-Twilio clients (blank = shared account)
+            </span>
+            <input name="twilioAccountSid" defaultValue={client.twilioAccountSid ?? ""} placeholder="AC…" className={IN} />
+          </label>
+          <div className="flex flex-wrap gap-5 pt-1">
+            <label className="inline-flex items-center gap-2 text-sm">
+              <input type="checkbox" name="voiceActive" defaultChecked={client.voiceActive} /> Active (take calls)
+            </label>
+            <label className="inline-flex items-center gap-2 text-sm">
+              <input type="checkbox" name="voiceTranscribe" defaultChecked={client.voiceTranscribe} /> Store full transcripts
+            </label>
+          </div>
+          <button className="gradient-bg rounded-full px-5 py-2 text-sm font-semibold text-white">
+            Save agent settings
+          </button>
+        </form>
+
+        {/* Phone numbers */}
+        <div className="mt-5 border-t border-border pt-4">
+          <h3 className="text-sm font-semibold">Phone numbers</h3>
+          <p className="text-xs text-muted">
+            Numbers routed to this agent (inbound, and the &ldquo;from&rdquo; number for callbacks).
+          </p>
+          {client.agentNumbers.length > 0 && (
+            <ul className="mt-2 divide-y divide-border">
+              {client.agentNumbers.map((n) => (
+                <li key={n.id} className="flex items-center justify-between py-2">
+                  <span className="inline-flex items-center gap-1.5 text-sm">
+                    <Phone size={14} className="text-muted" /> {n.phoneNumber}
+                  </span>
+                  <form action={deleteAgentNumber}>
+                    <input type="hidden" name="id" value={n.id} />
+                    <input type="hidden" name="clientId" value={client.id} />
+                    <ConfirmButton
+                      message={`Remove ${n.phoneNumber}?`}
+                      ariaLabel="Remove number"
+                      className="text-muted hover:text-red-600"
+                    >
+                      <Trash2 size={15} />
+                    </ConfirmButton>
+                  </form>
+                </li>
+              ))}
+            </ul>
+          )}
+          <form action={addAgentNumber} className="mt-3 flex gap-2">
+            <input type="hidden" name="clientId" value={client.id} />
+            <input name="phoneNumber" required placeholder="+16475550123" className={IN} />
+            <button className="inline-flex shrink-0 items-center gap-1.5 rounded-full border border-fg/15 bg-white px-4 py-2 text-sm font-semibold">
+              <Plus size={15} /> Add
+            </button>
+          </form>
+        </div>
+
+        {/* Lead-capture link */}
+        <div className="mt-5 border-t border-border pt-4">
+          <h3 className="text-sm font-semibold">Lead-capture link</h3>
+          {captureLink ? (
+            <div className="mt-2">
+              <CopyField value={captureLink} />
+            </div>
+          ) : (
+            <p className="mt-1 text-xs text-muted">Set a slug above and save to generate the link.</p>
+          )}
+        </div>
       </section>
 
       {/* Performance */}
