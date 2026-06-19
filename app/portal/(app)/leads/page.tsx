@@ -1,7 +1,8 @@
-import { Phone, PhoneIncoming, PhoneOutgoing, CalendarCheck, UserCheck, ArrowRightLeft } from "lucide-react";
+import { Phone, PhoneIncoming, PhoneOutgoing, CalendarCheck, UserCheck, ArrowRightLeft, Megaphone } from "lucide-react";
 import { prisma } from "@/lib/prisma";
 import { requirePortalClient } from "@/lib/portal";
 import { fdate } from "@/lib/admin";
+import { CopyField } from "@/components/portal/CopyField";
 
 export const dynamic = "force-dynamic";
 
@@ -14,6 +15,10 @@ type Turn = { role?: string; content?: string };
 
 export default async function LeadsPage() {
   const { clientId } = await requirePortalClient();
+  const client = await prisma.client.findUnique({
+    where: { id: clientId },
+    select: { voiceSlug: true },
+  });
   const calls = await prisma.voiceCall.findMany({
     where: { clientId },
     include: { lead: true },
@@ -22,6 +27,9 @@ export default async function LeadsPage() {
   });
   const leadCount = await prisma.voiceLead.count({ where: { clientId } });
 
+  const base = (process.env.VOICE_AGENT_URL ?? "https://hvr-voice-agent.onrender.com").replace(/\/$/, "");
+  const captureLink = client?.voiceSlug ? `${base}/?tenant=${client.voiceSlug}` : null;
+
   return (
     <div>
       <h1 className="font-display text-2xl font-bold">Leads &amp; calls</h1>
@@ -29,6 +37,26 @@ export default async function LeadsPage() {
         Every AI call, who it was with, and what happened — {leadCount} lead
         {leadCount === 1 ? "" : "s"} captured.
       </p>
+
+      {/* Lead-capture link to share on Instagram/ads */}
+      <section className="matte mt-6 rounded-2xl p-5">
+        <h2 className="inline-flex items-center gap-2 font-display font-semibold">
+          <Megaphone size={17} className="text-brand" /> Your lead-capture link
+        </h2>
+        <p className="mt-1 text-sm text-muted">
+          Put this in your Instagram bio or ad. The moment someone submits their
+          details, your AI calls them — usually within seconds.
+        </p>
+        <div className="mt-3">
+          {captureLink ? (
+            <CopyField value={captureLink} />
+          ) : (
+            <p className="rounded-xl border border-amber-200 bg-amber-50 px-3 py-2.5 text-sm text-amber-800">
+              Your link will appear here once your AI agent is activated — contact HVR to switch it on.
+            </p>
+          )}
+        </div>
+      </section>
 
       {calls.length === 0 ? (
         <div className="matte mt-6 rounded-2xl px-6 py-16 text-center text-sm text-muted">
