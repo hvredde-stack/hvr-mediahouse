@@ -354,7 +354,7 @@ function Shapes() {
     <div aria-hidden className="pointer-events-none absolute inset-0">
       <div
         className="animate-float-slow absolute left-1/2 top-[58%] h-[24rem] w-[24rem] -translate-x-1/2 rounded-full opacity-90 blur-[2px] sm:h-[30rem] sm:w-[30rem]"
-        style={{ background: "radial-gradient(circle, #e8a37e 0%, #e8a37e 55%, transparent 72%)" }}
+        style={{ background: "radial-gradient(circle, #7fd4a0 0%, #7fd4a0 55%, transparent 72%)" }}
       />
     </div>
   );

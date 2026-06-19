@@ -18,7 +18,7 @@ export default function Image() {
           height: "100%",
           padding: "88px",
           justifyContent: "space-between",
-          background: "linear-gradient(135deg, #cf6a44 0%, #a8482b 100%)",
+          background: "linear-gradient(135deg, #15734a 0%, #0a3d2b 100%)",
           color: "#ffffff",
           fontFamily: "sans-serif",
         }}

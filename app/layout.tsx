@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Inter, Poppins } from "next/font/google";
+import { Inter, Plus_Jakarta_Sans } from "next/font/google";
 import "./globals.css";
 import { site } from "@/lib/site";
 import { SiteAnalytics } from "@/components/SiteAnalytics";
@@ -10,10 +10,10 @@ const inter = Inter({
   display: "swap",
 });
 
-const poppins = Poppins({
+const display = Plus_Jakarta_Sans({
   variable: "--font-display-face",
   subsets: ["latin"],
-  weight: ["500", "600", "700"],
+  weight: ["500", "600", "700", "800"],
   style: ["normal", "italic"],
   display: "swap",
 });
@@ -57,7 +57,7 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#faf6f1",
+  themeColor: "#eaeeec",
 };
 
 const jsonLd = {
@@ -89,7 +89,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${inter.variable} ${poppins.variable} h-full`}>
+    <html lang="en" className={`${inter.variable} ${display.variable} h-full`}>
       <body className="flex min-h-full flex-col">
         <a
           href="#top"

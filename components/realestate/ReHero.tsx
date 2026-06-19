@@ -40,15 +40,15 @@ type Tile = {
 };
 
 const tiles: Tile[] = [
-  { kind: "listing", bg: "#c2603f", fg: "#fff", label: "Just listed", icon: <Home size={18} /> },
-  { kind: "reel", bg: "#2a211a", fg: "#fff", label: "Reel", icon: <Play size={18} fill="currentColor" /> },
-  { kind: "story", bg: "#dd962f", fg: "#2a211a", label: "Story", icon: <Camera size={18} /> },
-  { kind: "brand", bg: "#5f8d6a", fg: "#fff", label: "You", icon: <Camera size={18} /> },
-  { kind: "listing", bg: "#f6e4da", fg: "#a8482b", label: "Sold", icon: <Home size={18} /> },
-  { kind: "reel", bg: "#8a5a7d", fg: "#fff", label: "Reel", icon: <Play size={18} fill="currentColor" /> },
-  { kind: "story", bg: "#e0745a", fg: "#fff", label: "Tips", icon: <TrendingUp size={18} /> },
-  { kind: "listing", bg: "#f2ece2", fg: "#7a6f63", label: "Tour", icon: <Home size={18} /> },
-  { kind: "reel", bg: "#a8482b", fg: "#fff", label: "Reel", icon: <Play size={18} fill="currentColor" /> },
+  { kind: "listing", bg: "#12603f", fg: "#fff", label: "Just listed", icon: <Home size={18} /> },
+  { kind: "reel", bg: "#0a1f16", fg: "#fff", label: "Reel", icon: <Play size={18} fill="currentColor" /> },
+  { kind: "story", bg: "#b6e24a", fg: "#0a1f16", label: "Story", icon: <Camera size={18} /> },
+  { kind: "brand", bg: "#2f7d5b", fg: "#fff", label: "You", icon: <Camera size={18} /> },
+  { kind: "listing", bg: "#e3f0ea", fg: "#0a3d2b", label: "Sold", icon: <Home size={18} /> },
+  { kind: "reel", bg: "#7c5cff", fg: "#fff", label: "Reel", icon: <Play size={18} fill="currentColor" /> },
+  { kind: "story", bg: "#e8739a", fg: "#fff", label: "Tips", icon: <TrendingUp size={18} /> },
+  { kind: "listing", bg: "#f2f5f3", fg: "#5b6a62", label: "Tour", icon: <Home size={18} /> },
+  { kind: "reel", bg: "#0a3d2b", fg: "#fff", label: "Reel", icon: <Play size={18} fill="currentColor" /> },
 ];
 
 export function ReHero() {
@@ -131,7 +131,7 @@ export function ReHero() {
             className="pointer-events-none absolute left-1/2 top-1/2 -z-10 h-[26rem] w-[26rem] -translate-x-1/2 -translate-y-1/2 rounded-full opacity-70 blur-3xl"
             style={{
               background:
-                "radial-gradient(circle at 50% 45%, rgba(194,96,63,0.3), rgba(216,138,95,0.18) 50%, transparent 72%)",
+                "radial-gradient(circle at 50% 45%, rgba(18,96,63,0.32), rgba(60,160,90,0.18) 50%, transparent 72%)",
             }}
           />
 

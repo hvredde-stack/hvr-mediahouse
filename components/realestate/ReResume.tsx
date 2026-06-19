@@ -15,15 +15,15 @@ import { Reveal } from "../Reveal";
 const { resume } = realEstate;
 
 const gridTiles = [
-  { bg: "#c2603f", fg: "#fff", icon: <Home size={16} /> },
-  { bg: "#2a211a", fg: "#fff", icon: <Play size={16} fill="currentColor" /> },
-  { bg: "#dd962f", fg: "#2a211a", icon: <Camera size={16} /> },
-  { bg: "#5f8d6a", fg: "#fff", icon: <Camera size={16} /> },
-  { bg: "#f6e4da", fg: "#a8482b", icon: <Home size={16} /> },
-  { bg: "#8a5a7d", fg: "#fff", icon: <Play size={16} fill="currentColor" /> },
-  { bg: "#e0745a", fg: "#fff", icon: <TrendingUp size={16} /> },
-  { bg: "#f2ece2", fg: "#7a6f63", icon: <Home size={16} /> },
-  { bg: "#a8482b", fg: "#fff", icon: <Play size={16} fill="currentColor" /> },
+  { bg: "#12603f", fg: "#fff", icon: <Home size={16} /> },
+  { bg: "#0a1f16", fg: "#fff", icon: <Play size={16} fill="currentColor" /> },
+  { bg: "#b6e24a", fg: "#0a1f16", icon: <Camera size={16} /> },
+  { bg: "#2f7d5b", fg: "#fff", icon: <Camera size={16} /> },
+  { bg: "#e3f0ea", fg: "#0a3d2b", icon: <Home size={16} /> },
+  { bg: "#7c5cff", fg: "#fff", icon: <Play size={16} fill="currentColor" /> },
+  { bg: "#e8739a", fg: "#fff", icon: <TrendingUp size={16} /> },
+  { bg: "#f2f5f3", fg: "#5b6a62", icon: <Home size={16} /> },
+  { bg: "#0a3d2b", fg: "#fff", icon: <Play size={16} fill="currentColor" /> },
 ];
 
 export function ReResume() {

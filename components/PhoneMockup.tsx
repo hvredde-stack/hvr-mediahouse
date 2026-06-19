@@ -22,7 +22,7 @@ export function PhoneMockup() {
         className="absolute -inset-10 -z-10 rounded-[5rem] opacity-80 blur-3xl"
         style={{
           background:
-            "radial-gradient(circle at 50% 42%, rgba(194,96,63,0.32), rgba(216,138,95,0.2) 50%, transparent 72%)",
+            "radial-gradient(circle at 50% 42%, rgba(18,96,63,0.34), rgba(60,160,90,0.2) 50%, transparent 72%)",
         }}
       />
 
@@ -32,7 +32,7 @@ export function PhoneMockup() {
           className="relative overflow-hidden rounded-[2.4rem]"
           style={{
             aspectRatio: "9 / 19",
-            background: "linear-gradient(168deg,#2c231c 0%,#191108 100%)",
+            background: "linear-gradient(168deg,#0a3d2b 0%,#06251a 100%)",
           }}
         >
           {/* CN Tower skyline — proudly local to the GTA, with a softly pulsing beacon */}
@@ -44,7 +44,7 @@ export function PhoneMockup() {
           <div className="relative z-10 flex h-full flex-col px-4 pb-3 pt-11 text-white">
             {/* location */}
             <div className="mb-2.5 inline-flex w-fit items-center gap-1.5 rounded-full bg-white/10 px-2.5 py-1 text-[10px] font-semibold uppercase tracking-wider text-white/75 backdrop-blur">
-              <span className="h-1.5 w-1.5 rounded-full bg-emerald-400" /> Toronto · GTA
+              <span className="h-1.5 w-1.5 rounded-full bg-lime" /> Toronto · GTA
             </div>
             {/* header */}
             <div className="flex items-end justify-between">
@@ -56,7 +56,7 @@ export function PhoneMockup() {
                   48.2k
                 </p>
               </div>
-              <span className="inline-flex items-center gap-1 rounded-full bg-emerald-500/20 px-2.5 py-1 text-xs font-bold text-emerald-300">
+              <span className="inline-flex items-center gap-1 rounded-full bg-lime/25 px-2.5 py-1 text-xs font-bold text-lime">
                 <ArrowUpRight size={12} /> +18%
               </span>
             </div>
@@ -82,7 +82,7 @@ export function PhoneMockup() {
                       {r.handle}
                     </div>
                   </div>
-                  <div className="text-[12px] font-bold text-emerald-300">
+                  <div className="text-[12px] font-bold text-lime">
                     {r.growth}
                   </div>
                 </div>
@@ -97,7 +97,7 @@ export function PhoneMockup() {
               <LayoutGrid size={17} className="text-white/45" />
               <span
                 className="grid h-9 w-9 place-items-center rounded-full text-white shadow-lg"
-                style={{ background: "linear-gradient(135deg,#cf6a44,#a8482b)" }}
+                style={{ background: "linear-gradient(135deg,#15734a,#0a3d2b)" }}
               >
                 <BarChart3 size={16} />
               </span>
@@ -121,15 +121,15 @@ function GrowthChart() {
     >
       <defs>
         <linearGradient id="ph-area" x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0" stopColor="#e8a37e" stopOpacity="0.4" />
-          <stop offset="1" stopColor="#e8a37e" stopOpacity="0" />
+          <stop offset="0" stopColor="#7fd4a0" stopOpacity="0.4" />
+          <stop offset="1" stopColor="#7fd4a0" stopOpacity="0" />
         </linearGradient>
       </defs>
       <path d={`${line} L320,100 L0,100 Z`} fill="url(#ph-area)" />
       <path
         d={line}
         fill="none"
-        stroke="#f0a06a"
+        stroke="#b6e24a"
         strokeWidth="2.5"
         strokeLinecap="round"
         vectorEffect="non-scaling-stroke"
@@ -157,8 +157,8 @@ function CnTower({ className }: { className?: string }) {
         <path d="M15 232 Q30 217 45 232 L45 240 L15 240 Z" />
       </g>
 
-      {/* warm lit windows on the observation pod */}
-      <g fill="#ffc78f">
+      {/* lit pod windows */}
+      <g fill="#d2e9a0">
         <circle cx="24" cy="82" r="1" />
         <circle cx="30" cy="83" r="1" />
         <circle cx="36" cy="82" r="1" />
@@ -170,5 +170,3 @@ function CnTower({ className }: { className?: string }) {
     </svg>
   );
 }
-
-

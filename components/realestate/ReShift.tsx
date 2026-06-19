@@ -44,7 +44,7 @@ export function ReShift() {
               <div
                 aria-hidden
                 className="pointer-events-none absolute -right-16 -top-16 h-48 w-48 rounded-full opacity-50 blur-2xl"
-                style={{ background: "radial-gradient(circle,#e0745a,transparent 70%)" }}
+                style={{ background: "radial-gradient(circle,#e8739a,transparent 70%)" }}
               />
               <div className="relative flex items-center justify-between">
                 <h3 className="font-display text-xl font-semibold text-fg">{shift.next.label}</h3>
@@ -78,7 +78,7 @@ function TrendLine({ variant }: { variant: "flat" | "rising" }) {
   const d = rising
     ? "M4,86 C40,84 70,74 110,62 C150,50 180,40 220,26 C250,16 280,10 312,6"
     : "M4,52 C30,52 44,30 64,30 C84,30 96,52 120,52 L312,52";
-  const stroke = rising ? "#c2603f" : "#b8ab9a";
+  const stroke = rising ? "#12603f" : "#b8ab9a";
 
   return (
     <div className="mt-6 rounded-2xl bg-white/70 p-4 ring-1 ring-black/5">
@@ -86,8 +86,8 @@ function TrendLine({ variant }: { variant: "flat" | "rising" }) {
         {rising && (
           <defs>
             <linearGradient id="shift-area" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="0" stopColor="#e0745a" stopOpacity="0.28" />
-              <stop offset="1" stopColor="#e0745a" stopOpacity="0" />
+              <stop offset="0" stopColor="#e8739a" stopOpacity="0.28" />
+              <stop offset="1" stopColor="#e8739a" stopOpacity="0" />
             </linearGradient>
           </defs>
         )}

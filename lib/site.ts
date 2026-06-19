@@ -80,7 +80,7 @@ export const serviceAreas = [
 ];
 
 /* ── Accent colours used across the site (icon tiles, shapes) ── */
-export const accents = ["#c2603f", "#dd962f", "#5f8d6a", "#e0745a", "#8a5a7d"];
+export const accents = ["#12603f", "#b6e24a", "#2bb39a", "#e8739a", "#7c5cff"];
 
 /* ── Photos (swap these URLs for your own images any time) ───── */
 export const images = {
