@@ -12,6 +12,7 @@ import {
   CLIENT_STATUSES,
 } from "@/lib/admin";
 import { hashPassword } from "@/lib/auth";
+import { encryptSecret } from "@/lib/crypto";
 
 export async function createClient(fd: FormData) {
   await requireUser();
@@ -100,6 +101,9 @@ export async function saveVoiceConfig(fd: FormData) {
     .trim()
     .replace(/[^a-z0-9-]+/g, "-")
     .replace(/^-+|-+$/g, "");
+  // Encrypt the Twilio auth token only when a new one is entered; blank = keep existing.
+  const token = str(fd, "twilioAuthToken").trim();
+  const encToken = token ? encryptSecret(token) : null;
   await prisma.client
     .update({
       where: { id },
@@ -110,6 +114,7 @@ export async function saveVoiceConfig(fd: FormData) {
         voiceActive: fd.get("voiceActive") != null,
         voiceTranscribe: fd.get("voiceTranscribe") != null,
         twilioAccountSid: strOrNull(fd, "twilioAccountSid"),
+        ...(encToken ? { twilioAuthToken: encToken } : {}),
       },
     })
     .catch(() => {}); // likely a duplicate slug — silently ignore (no inline errors yet)

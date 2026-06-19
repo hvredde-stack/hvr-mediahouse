@@ -213,12 +213,26 @@ export default async function ClientDetail({
               className={`${IN} resize-y`}
             />
           </label>
-          <label className="block">
-            <span className="text-xs font-medium text-muted">
-              Twilio Account SID — only for bring-your-own-Twilio clients (blank = shared account)
-            </span>
-            <input name="twilioAccountSid" defaultValue={client.twilioAccountSid ?? ""} placeholder="AC…" className={IN} />
-          </label>
+          <div className="grid gap-3 sm:grid-cols-2">
+            <label className="block">
+              <span className="text-xs font-medium text-muted">
+                Twilio Account SID — BYO clients only (blank = shared account)
+              </span>
+              <input name="twilioAccountSid" defaultValue={client.twilioAccountSid ?? ""} placeholder="AC…" className={IN} />
+            </label>
+            <label className="block">
+              <span className="text-xs font-medium text-muted">
+                Twilio Auth Token {client.twilioAuthToken ? "(saved — blank keeps it)" : "(encrypted on save)"}
+              </span>
+              <input
+                name="twilioAuthToken"
+                type="password"
+                autoComplete="new-password"
+                placeholder={client.twilioAuthToken ? "••••••••" : "leave blank for shared account"}
+                className={IN}
+              />
+            </label>
+          </div>
           <div className="flex flex-wrap gap-5 pt-1">
             <label className="inline-flex items-center gap-2 text-sm">
               <input type="checkbox" name="voiceActive" defaultChecked={client.voiceActive} /> Active (take calls)
