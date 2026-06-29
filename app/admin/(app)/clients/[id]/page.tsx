@@ -52,7 +52,7 @@ export default async function ClientDetail({
 
   const { paid, outstanding } = invoiceTotals(client.invoices);
   const base = (process.env.VOICE_AGENT_URL ?? "https://hvr-voice-agent.onrender.com").replace(/\/$/, "");
-  const captureLink = client.voiceSlug ? `${base}/?tenant=${client.voiceSlug}` : null;
+  const captureLink = client.voiceSlug && client.voiceActive ? `${base}/?tenant=${client.voiceSlug}` : null;
 
   return (
     <div className="space-y-6">
@@ -291,7 +291,7 @@ export default async function ClientDetail({
               <CopyField value={captureLink} />
             </div>
           ) : (
-            <p className="mt-1 text-xs text-muted">Set a slug above and save to generate the link.</p>
+            <p className="mt-1 text-xs text-muted">Set a slug, turn the agent on, and save to generate the link.</p>
           )}
         </div>
       </section>

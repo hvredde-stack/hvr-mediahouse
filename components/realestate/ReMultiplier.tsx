@@ -57,7 +57,7 @@ export function ReMultiplier() {
                     key={i}
                     d={d}
                     fill="none"
-                    stroke="#12603f"
+                    stroke="#2b5bb0"
                     strokeWidth="1.5"
                     strokeLinecap="round"
                     strokeDasharray="0.1 4"
@@ -84,7 +84,7 @@ export function ReMultiplier() {
                 >
                   <span
                     className="mx-auto grid h-11 w-11 place-items-center rounded-xl text-white"
-                    style={{ background: ["#12603f", "#b6e24a", "#2f7d5b", "#8a5a7d"][i % 4] }}
+                    style={{ background: ["#2b5bb0", "#38bdf8", "#3f74c9", "#6366f1"][i % 4] }}
                   >
                     <Icon name={o.icon} size={20} />
                   </span>

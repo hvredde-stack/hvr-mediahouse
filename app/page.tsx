@@ -4,6 +4,7 @@ import { Hero } from "@/components/sections/Hero";
 import { Marquee } from "@/components/sections/Marquee";
 import { Services } from "@/components/sections/Services";
 import { About } from "@/components/sections/About";
+import { AiEdge } from "@/components/sections/AiEdge";
 import { Process } from "@/components/sections/Process";
 import { Portfolio } from "@/components/sections/Portfolio";
 import { LocalGTA } from "@/components/sections/LocalGTA";
@@ -20,6 +21,7 @@ export default function Home() {
         <Marquee />
         <Services />
         <About />
+        <AiEdge />
         <Portfolio />
         <Process />
         <LocalGTA />

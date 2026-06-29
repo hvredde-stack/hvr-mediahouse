@@ -173,7 +173,7 @@ export const agent = {
       baths: 3,
       sqft: "2,450",
       note: "Sold in 6 days — $80K over asking",
-      accent: "#5f8d6a",
+      accent: "#3f74c9",
     },
     {
       status: "Just Sold",
@@ -183,7 +183,7 @@ export const agent = {
       baths: 2,
       sqft: "1,720",
       note: "5 offers, sold over asking",
-      accent: "#5f8d6a",
+      accent: "#3f74c9",
     },
     {
       status: "For Sale",
@@ -193,7 +193,7 @@ export const agent = {
       baths: 4,
       sqft: "3,100",
       note: "New listing — book a private tour",
-      accent: "#c2603f",
+      accent: "#2b5bb0",
     },
     {
       status: "Just Sold",
@@ -203,7 +203,7 @@ export const agent = {
       baths: 2,
       sqft: "1,540",
       note: "First-time buyer — closed in 21 days",
-      accent: "#5f8d6a",
+      accent: "#3f74c9",
     },
     {
       status: "For Sale",
@@ -213,7 +213,7 @@ export const agent = {
       baths: 3,
       sqft: "2,180",
       note: "Open house this weekend",
-      accent: "#c2603f",
+      accent: "#2b5bb0",
     },
     {
       status: "Just Sold",
@@ -223,7 +223,7 @@ export const agent = {
       baths: 3,
       sqft: "2,300",
       note: "Sold in 9 days at 101% of asking",
-      accent: "#5f8d6a",
+      accent: "#3f74c9",
     },
   ],
 

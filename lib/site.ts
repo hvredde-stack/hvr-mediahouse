@@ -13,7 +13,7 @@ export const site = {
   tagline: "We turn followers into customers.",
   // One or two sentences describing what you do (used on the site + Google).
   description:
-    "HVR Media House is a Greater Toronto Area social media marketing agency. We grow brands across Toronto and the GTA on Instagram, Facebook, TikTok and YouTube with scroll-stopping content, smart paid ads, and strategy that drives real results.",
+    "HVR Media House is an AI-powered social media marketing agency in the Greater Toronto Area. We blend AI and data analytics with scroll-stopping content, smart paid ads and strategy to grow Toronto and GTA brands on Instagram, Facebook, TikTok and YouTube — turning attention into customers.",
 
   // Used for links and the contact section. EDIT THESE.
   email: "hvrmediahouse@gmail.com",
@@ -80,7 +80,7 @@ export const serviceAreas = [
 ];
 
 /* ── Accent colours used across the site (icon tiles, shapes) ── */
-export const accents = ["#12603f", "#b6e24a", "#2bb39a", "#e8739a", "#7c5cff"];
+export const accents = ["#2b5bb0", "#38bdf8", "#14a3b8", "#5b9ae6", "#6366f1"];
 
 /* ── Photos (swap these URLs for your own images any time) ───── */
 export const images = {
@@ -101,42 +101,42 @@ export const services = [
     emoji: "📣",
     title: "Social Media Management",
     description:
-      "We run your Instagram, Facebook, TikTok and YouTube end-to-end — content calendars, daily posting, captions, hashtags and community management.",
+      "We run your Instagram, Facebook, TikTok and YouTube end-to-end — AI-assisted content calendars, daily posting, captions, hashtags and community management.",
   },
   {
     icon: "Clapperboard",
     emoji: "🎬",
     title: "Content Creation",
     description:
-      "Scroll-stopping short-form video, reels, photography and graphics designed to stop the thumb and build your brand.",
+      "Scroll-stopping short-form video, reels, photography and graphics — powered by AI ideation and editing to stop the thumb and build your brand.",
   },
   {
     icon: "Target",
     emoji: "🎯",
     title: "Paid Ads & Performance",
     description:
-      "Meta, TikTok and YouTube ad campaigns engineered for ROI — from creative to targeting to daily optimization.",
+      "Meta, TikTok and YouTube ad campaigns engineered for ROI — AI-driven targeting, creative testing and daily optimization.",
   },
   {
     icon: "Users",
     emoji: "🤝",
     title: "Influencer Marketing",
     description:
-      "We find, vet and manage the right creators to put your brand in front of the audiences that matter.",
+      "We use AI to find, vet and match the right creators, then manage them to put your brand in front of the audiences that matter.",
   },
   {
     icon: "Sparkles",
     emoji: "🚀",
-    title: "Brand Strategy & Growth",
+    title: "AI Brand Strategy & Growth",
     description:
-      "Positioning, content pillars and a 90-day growth roadmap so every post moves you toward your goals.",
+      "AI- and data-backed positioning, content pillars and a 90-day growth roadmap so every post moves you toward your goals.",
   },
   {
     icon: "BarChart3",
     emoji: "📊",
-    title: "Analytics & Reporting",
+    title: "AI Analytics & Reporting",
     description:
-      "Clear monthly reports that show what's working — reach, engagement, leads and revenue, not vanity metrics.",
+      "AI analytics that surface what's actually working — reach, engagement, leads and revenue, not vanity metrics — in clear monthly reports.",
   },
 ];
 
@@ -186,7 +186,7 @@ export const caseStudies = [
       { metric: "240k", label: "New followers / 6 mo" },
       { metric: "3.1M", label: "Organic views / mo" },
     ],
-    accent: "from-[#cf6a44] to-[#9a3f24]",
+    accent: "from-[#2f63c4] to-[#16306b]",
   },
   {
     client: "Urban Eats",
@@ -197,7 +197,7 @@ export const caseStudies = [
       { metric: "3.1M", label: "Video views" },
       { metric: "+62%", label: "Weekend bookings" },
     ],
-    accent: "from-[#cf6a44] to-[#9a3f24]",
+    accent: "from-[#2f63c4] to-[#16306b]",
   },
   {
     client: "FitForge App",
@@ -208,7 +208,7 @@ export const caseStudies = [
       { metric: "180k", label: "App installs" },
       { metric: "-47%", label: "Cost per install" },
     ],
-    accent: "from-[#d98a5f] to-[#a8482b]",
+    accent: "from-[#5b9ae6] to-[#16306b]",
   },
   {
     client: "Nova Fashion",
@@ -219,7 +219,7 @@ export const caseStudies = [
       { metric: "$1.4M", label: "Revenue influenced" },
       { metric: "4.7x", label: "Return on ad spend" },
     ],
-    accent: "from-[#c97b3f] to-[#9a3f24]",
+    accent: "from-[#3f74c9] to-[#16306b]",
   },
 ] as const;
 

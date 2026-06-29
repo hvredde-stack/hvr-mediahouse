@@ -19,12 +19,12 @@ export function AgentContact() {
         <Reveal>
           <div
             className="relative overflow-hidden rounded-[2rem] px-8 py-14 sm:px-12 sm:py-16"
-            style={{ background: "linear-gradient(160deg,#0a3d2b 0%,#06251a 100%)" }}
+            style={{ background: "linear-gradient(160deg,#16306b 0%,#0e2347 100%)" }}
           >
             <div
               aria-hidden
               className="pointer-events-none absolute -top-24 right-0 h-72 w-72 rounded-full opacity-60 blur-3xl"
-              style={{ background: "radial-gradient(circle,#b6e24a,transparent 70%)" }}
+              style={{ background: "radial-gradient(circle,#38bdf8,transparent 70%)" }}
             />
             <div className="relative grid gap-10 lg:grid-cols-2 lg:items-center">
               <div>

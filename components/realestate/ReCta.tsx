@@ -12,13 +12,13 @@ export function ReCta() {
         <Reveal>
           <div
             className="relative overflow-hidden rounded-[2rem] px-8 py-16 text-center sm:px-12 sm:py-20"
-            style={{ background: "linear-gradient(160deg,#0a3d2b 0%,#06251a 100%)" }}
+            style={{ background: "linear-gradient(160deg,#16306b 0%,#0e2347 100%)" }}
           >
             {/* warm glow */}
             <div
               aria-hidden
               className="pointer-events-none absolute -top-24 left-1/2 h-72 w-72 -translate-x-1/2 rounded-full opacity-60 blur-3xl"
-              style={{ background: "radial-gradient(circle,#b6e24a,transparent 70%)" }}
+              style={{ background: "radial-gradient(circle,#38bdf8,transparent 70%)" }}
             />
             <div className="relative mx-auto max-w-2xl">
               <span className="inline-flex items-center gap-2 rounded-full bg-white/10 px-4 py-1.5 text-xs font-semibold uppercase tracking-wider text-white/80 backdrop-blur">

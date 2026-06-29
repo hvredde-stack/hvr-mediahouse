@@ -40,15 +40,15 @@ type Tile = {
 };
 
 const tiles: Tile[] = [
-  { kind: "listing", bg: "#12603f", fg: "#fff", label: "Just listed", icon: <Home size={18} /> },
-  { kind: "reel", bg: "#0a1f16", fg: "#fff", label: "Reel", icon: <Play size={18} fill="currentColor" /> },
-  { kind: "story", bg: "#b6e24a", fg: "#0a1f16", label: "Story", icon: <Camera size={18} /> },
-  { kind: "brand", bg: "#2f7d5b", fg: "#fff", label: "You", icon: <Camera size={18} /> },
-  { kind: "listing", bg: "#e3f0ea", fg: "#0a3d2b", label: "Sold", icon: <Home size={18} /> },
-  { kind: "reel", bg: "#7c5cff", fg: "#fff", label: "Reel", icon: <Play size={18} fill="currentColor" /> },
-  { kind: "story", bg: "#e8739a", fg: "#fff", label: "Tips", icon: <TrendingUp size={18} /> },
-  { kind: "listing", bg: "#f2f5f3", fg: "#5b6a62", label: "Tour", icon: <Home size={18} /> },
-  { kind: "reel", bg: "#0a3d2b", fg: "#fff", label: "Reel", icon: <Play size={18} fill="currentColor" /> },
+  { kind: "listing", bg: "#2b5bb0", fg: "#fff", label: "Just listed", icon: <Home size={18} /> },
+  { kind: "reel", bg: "#0e1830", fg: "#fff", label: "Reel", icon: <Play size={18} fill="currentColor" /> },
+  { kind: "story", bg: "#38bdf8", fg: "#0e1830", label: "Story", icon: <Camera size={18} /> },
+  { kind: "brand", bg: "#3f74c9", fg: "#fff", label: "You", icon: <Camera size={18} /> },
+  { kind: "listing", bg: "#e4ecf9", fg: "#16306b", label: "Sold", icon: <Home size={18} /> },
+  { kind: "reel", bg: "#6366f1", fg: "#fff", label: "Reel", icon: <Play size={18} fill="currentColor" /> },
+  { kind: "story", bg: "#5b9ae6", fg: "#fff", label: "Tips", icon: <TrendingUp size={18} /> },
+  { kind: "listing", bg: "#f5f7fa", fg: "#5c6680", label: "Tour", icon: <Home size={18} /> },
+  { kind: "reel", bg: "#16306b", fg: "#fff", label: "Reel", icon: <Play size={18} fill="currentColor" /> },
 ];
 
 export function ReHero() {
@@ -60,7 +60,7 @@ export function ReHero() {
       <div aria-hidden className="pointer-events-none absolute inset-0">
         <div
           className="animate-float-slow absolute -right-24 top-24 h-[28rem] w-[28rem] rounded-full opacity-70 blur-[2px]"
-          style={{ background: "radial-gradient(circle, #e8a37e 0%, #e8a37e 50%, transparent 72%)" }}
+          style={{ background: "radial-gradient(circle, #8fb8ee 0%, #8fb8ee 50%, transparent 72%)" }}
         />
       </div>
 
@@ -131,7 +131,7 @@ export function ReHero() {
             className="pointer-events-none absolute left-1/2 top-1/2 -z-10 h-[26rem] w-[26rem] -translate-x-1/2 -translate-y-1/2 rounded-full opacity-70 blur-3xl"
             style={{
               background:
-                "radial-gradient(circle at 50% 45%, rgba(18,96,63,0.32), rgba(60,160,90,0.18) 50%, transparent 72%)",
+                "radial-gradient(circle at 50% 45%, rgba(43,91,176,0.32), rgba(90,140,230,0.18) 50%, transparent 72%)",
             }}
           />
 
@@ -144,7 +144,7 @@ export function ReHero() {
             {/* phone frame — graphite body, bright screen */}
             <div
               className="relative rounded-[3rem] p-[11px] shadow-[0_35px_70px_-20px_rgba(70,40,20,0.55)]"
-              style={{ background: "linear-gradient(155deg,#46392f 0%,#2a211a 45%,#15100a 100%)" }}
+              style={{ background: "linear-gradient(155deg,#2b3242 0%,#15223f 45%,#0e1830 100%)" }}
             >
               {/* metallic edge highlight */}
               <div
@@ -152,9 +152,9 @@ export function ReHero() {
                 className="pointer-events-none absolute inset-0 rounded-[3rem] ring-1 ring-white/10"
               />
               {/* side buttons */}
-              <div aria-hidden className="absolute -left-[2.5px] top-[7rem] h-7 w-[3px] rounded-l-sm bg-[#15100a]" />
-              <div aria-hidden className="absolute -left-[2.5px] top-[9.5rem] h-12 w-[3px] rounded-l-sm bg-[#15100a]" />
-              <div aria-hidden className="absolute -right-[2.5px] top-[8.5rem] h-16 w-[3px] rounded-r-sm bg-[#15100a]" />
+              <div aria-hidden className="absolute -left-[2.5px] top-[7rem] h-7 w-[3px] rounded-l-sm bg-[#0e1830]" />
+              <div aria-hidden className="absolute -left-[2.5px] top-[9.5rem] h-12 w-[3px] rounded-l-sm bg-[#0e1830]" />
+              <div aria-hidden className="absolute -right-[2.5px] top-[8.5rem] h-16 w-[3px] rounded-r-sm bg-[#0e1830]" />
 
               <div className="relative overflow-hidden rounded-[2.3rem] bg-white">
                 {/* dynamic island */}

@@ -28,7 +28,7 @@ export function AgentHero() {
       <div aria-hidden className="pointer-events-none absolute inset-0">
         <div
           className="absolute -right-24 top-20 h-[26rem] w-[26rem] rounded-full opacity-60 blur-[2px]"
-          style={{ background: "radial-gradient(circle,#7fd4a0 0%,#7fd4a0 50%,transparent 72%)" }}
+          style={{ background: "radial-gradient(circle,#8fb8ee 0%,#8fb8ee 50%,transparent 72%)" }}
         />
       </div>
 

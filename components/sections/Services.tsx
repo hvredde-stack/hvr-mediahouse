@@ -14,14 +14,14 @@ export function Services() {
       <div className="container-page">
         <SectionHeading
           center={false}
-          eyebrow="What we do"
+          eyebrow="What we do · AI-powered"
           title={
             <>
               One team for your entire{" "}
               <span className="italic text-brand">social presence</span>
             </>
           }
-          subtitle="From strategy to the final report — content, ads and growth, handled end-to-end."
+          subtitle="From strategy to the final report — content, ads and growth, handled end-to-end and supercharged with AI and data analytics."
         />
 
         {/* Asymmetric composition: flagship + two secondary */}

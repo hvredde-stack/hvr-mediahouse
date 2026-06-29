@@ -1,20 +1,14 @@
 import type { Metadata, Viewport } from "next";
-import { Inter, Plus_Jakarta_Sans } from "next/font/google";
+import { Geist } from "next/font/google";
 import "./globals.css";
 import { site } from "@/lib/site";
 import { SiteAnalytics } from "@/components/SiteAnalytics";
 
-const inter = Inter({
+// Geist — clean, modern enterprise sans used across the whole site (one family).
+const geist = Geist({
   variable: "--font-body-face",
   subsets: ["latin"],
-  display: "swap",
-});
-
-const display = Plus_Jakarta_Sans({
-  variable: "--font-display-face",
-  subsets: ["latin"],
-  weight: ["500", "600", "700", "800"],
-  style: ["normal", "italic"],
+  weight: ["400", "500", "600", "700"],
   display: "swap",
 });
 
@@ -57,7 +51,7 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#eaeeec",
+  themeColor: "#eef1f4",
 };
 
 const jsonLd = {
@@ -89,7 +83,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${inter.variable} ${display.variable} h-full`}>
+    <html lang="en" className={`${geist.variable} h-full`}>
       <body className="flex min-h-full flex-col">
         <a
           href="#top"

@@ -6,10 +6,10 @@ import { Logo } from "./Logo";
 
 const links = [
   { href: "#services", label: "Services" },
+  { href: "#ai", label: "AI" },
   { href: "#work", label: "Work" },
   { href: "#pricing", label: "Pricing" },
   { href: "/realestate", label: "Real Estate" },
-  { href: "#testimonials", label: "Reviews" },
 ];
 
 export function Navbar() {

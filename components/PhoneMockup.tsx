@@ -22,7 +22,7 @@ export function PhoneMockup() {
         className="absolute -inset-10 -z-10 rounded-[5rem] opacity-80 blur-3xl"
         style={{
           background:
-            "radial-gradient(circle at 50% 42%, rgba(18,96,63,0.34), rgba(60,160,90,0.2) 50%, transparent 72%)",
+            "radial-gradient(circle at 50% 42%, rgba(43,91,176,0.34), rgba(90,140,230,0.2) 50%, transparent 72%)",
         }}
       />
 
@@ -32,7 +32,7 @@ export function PhoneMockup() {
           className="relative overflow-hidden rounded-[2.4rem]"
           style={{
             aspectRatio: "9 / 19",
-            background: "linear-gradient(168deg,#0a3d2b 0%,#06251a 100%)",
+            background: "linear-gradient(168deg,#16306b 0%,#0e2347 100%)",
           }}
         >
           {/* CN Tower skyline — proudly local to the GTA, with a softly pulsing beacon */}
@@ -97,7 +97,7 @@ export function PhoneMockup() {
               <LayoutGrid size={17} className="text-white/45" />
               <span
                 className="grid h-9 w-9 place-items-center rounded-full text-white shadow-lg"
-                style={{ background: "linear-gradient(135deg,#15734a,#0a3d2b)" }}
+                style={{ background: "linear-gradient(135deg,#2f63c4,#16306b)" }}
               >
                 <BarChart3 size={16} />
               </span>
@@ -121,15 +121,15 @@ function GrowthChart() {
     >
       <defs>
         <linearGradient id="ph-area" x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0" stopColor="#7fd4a0" stopOpacity="0.4" />
-          <stop offset="1" stopColor="#7fd4a0" stopOpacity="0" />
+          <stop offset="0" stopColor="#8fb8ee" stopOpacity="0.4" />
+          <stop offset="1" stopColor="#8fb8ee" stopOpacity="0" />
         </linearGradient>
       </defs>
       <path d={`${line} L320,100 L0,100 Z`} fill="url(#ph-area)" />
       <path
         d={line}
         fill="none"
-        stroke="#b6e24a"
+        stroke="#38bdf8"
         strokeWidth="2.5"
         strokeLinecap="round"
         vectorEffect="non-scaling-stroke"
@@ -158,7 +158,7 @@ function CnTower({ className }: { className?: string }) {
       </g>
 
       {/* lit pod windows */}
-      <g fill="#d2e9a0">
+      <g fill="#bcd7f5">
         <circle cx="24" cy="82" r="1" />
         <circle cx="30" cy="83" r="1" />
         <circle cx="36" cy="82" r="1" />

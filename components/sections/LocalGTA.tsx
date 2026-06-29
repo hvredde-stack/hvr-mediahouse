@@ -50,7 +50,7 @@ export function LocalGTA() {
                 className="absolute inset-0"
                 style={{
                   background:
-                    "linear-gradient(0deg, rgba(24,18,13,0.94) 0%, rgba(24,18,13,0.6) 38%, rgba(24,18,13,0.2) 62%, rgba(194,96,63,0.22) 100%)",
+                    "linear-gradient(0deg, rgba(10,16,30,0.94) 0%, rgba(10,16,30,0.6) 38%, rgba(10,16,30,0.2) 62%, rgba(43,91,176,0.22) 100%)",
                 }}
               />
               <div className="relative flex h-full min-h-[24rem] flex-col justify-end p-8">

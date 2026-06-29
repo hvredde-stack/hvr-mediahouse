@@ -11,8 +11,8 @@ const values = [
     text: "A dedicated creative team makes scroll-stopping content that actually sounds and looks like you.",
   },
   {
-    title: "Transparent reporting",
-    text: "No vanity metrics. Clear monthly reports you can actually understand and act on.",
+    title: "AI-powered reporting",
+    text: "AI surfaces what's working — no vanity metrics. Clear monthly reports you can actually understand and act on.",
   },
   {
     title: "Fast, human support",
@@ -30,16 +30,17 @@ export function About() {
             One team for content, ads &amp; strategy — stop juggling vendors
           </h2>
           <p className="mt-5 text-lg text-muted">
-            We&apos;re a team of strategists, creators and ad specialists
-            obsessed with one thing: turning your social media into a growth
-            channel that pays for itself. Big-agency results, with the care and
-            speed of a partner who actually picks up the phone.
+            We&apos;re a team of strategists, creators and ad specialists who pair
+            real human judgment with AI and data analytics at every step — turning
+            your social media into a growth channel that pays for itself.
+            Big-agency results, with the care and speed of a partner who actually
+            picks up the phone.
           </p>
 
           <ul className="mt-8 space-y-4">
             {[
-              "Senior specialists on every account",
-              "Content + ads + strategy under one roof",
+              "Senior specialists + AI on every account",
+              "AI and data analytics behind every decision",
               "Month-to-month — we earn your business",
             ].map((point) => (
               <li key={point} className="flex items-start gap-3">

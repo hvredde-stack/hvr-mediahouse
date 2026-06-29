@@ -100,7 +100,7 @@ export function Hero() {
           {/* headline */}
           <div className="relative z-10 mx-auto max-w-2xl">
             <motion.p custom={0} variants={fadeUp} initial="hidden" animate="show" className="overline">
-              Social media marketing for Toronto &amp; the GTA
+              AI-powered social media marketing · Toronto &amp; the GTA
             </motion.p>
             <motion.h1
               variants={wordContainer}
@@ -135,8 +135,8 @@ export function Hero() {
               className="mx-auto mt-5 max-w-xl text-lg leading-relaxed text-muted"
             >
               We grow Toronto &amp; GTA brands on Instagram, TikTok, YouTube and
-              beyond — content, ads and strategy that turn attention into
-              customers.
+              beyond — AI-powered content, ads and strategy that turn attention
+              into customers.
             </motion.p>
             <motion.div
               custom={3}
@@ -348,13 +348,12 @@ function Chip({
   );
 }
 
-// Soft organic decorative shapes behind the hero content.
 function Shapes() {
   return (
-    <div aria-hidden className="pointer-events-none absolute inset-0">
+    <div aria-hidden className="pointer-events-none absolute inset-0 overflow-hidden">
       <div
-        className="animate-float-slow absolute left-1/2 top-[58%] h-[24rem] w-[24rem] -translate-x-1/2 rounded-full opacity-90 blur-[2px] sm:h-[30rem] sm:w-[30rem]"
-        style={{ background: "radial-gradient(circle, #7fd4a0 0%, #7fd4a0 55%, transparent 72%)" }}
+        className="animate-float-slow absolute left-1/2 top-[30%] h-[40rem] w-[50rem] -translate-x-1/2 rounded-full opacity-60 blur-3xl"
+        style={{ background: "radial-gradient(circle, rgba(162,155,254,0.15) 0%, rgba(116,185,255,0.05) 50%, transparent 80%)" }}
       />
     </div>
   );
