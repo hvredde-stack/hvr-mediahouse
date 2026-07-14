@@ -26,7 +26,7 @@ export function Testimonials() {
   const supporting = testimonials.slice(1);
 
   return (
-    <section id="testimonials" className="section-pad bg-tint-blush">
+    <section id="testimonials" className="section-pad bg-transparent">
       <div className="container-page">
         <SectionHeading
           center={false}

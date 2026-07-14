@@ -1,15 +1,14 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { Menu, X } from "lucide-react";
+import { ArrowUpRight, Menu, X } from "lucide-react";
 import { Logo } from "./Logo";
 
 const links = [
   { href: "#services", label: "Services" },
-  { href: "#ai", label: "AI" },
   { href: "#work", label: "Work" },
+  { href: "#process", label: "Process" },
   { href: "#pricing", label: "Pricing" },
-  { href: "/realestate", label: "Real Estate" },
 ];
 
 export function Navbar() {
@@ -24,68 +23,91 @@ export function Navbar() {
   }, []);
 
   return (
-    <header
-      className={`fixed inset-x-0 top-0 z-50 transition-all duration-300 ${
-        scrolled
-          ? "glass py-3"
-          : "py-5"
-      }`}
-    >
-      <nav className="container-page flex items-center justify-between">
-        <a href="#top" aria-label="HVR Media House home">
+    <header className="fixed inset-x-0 top-0 z-50 font-sans">
+      <div
+        className={`container-page flex items-center justify-between gap-3 py-4 transition-all duration-300 ${
+          scrolled ? "py-3" : "py-5"
+        }`}
+      >
+        {/* Logo pill */}
+        <a
+          href="#top"
+          aria-label="Home"
+          className="nav-pill flex shrink-0 items-center px-4 py-2.5 shadow-sm sm:px-5"
+        >
           <Logo />
         </a>
 
-        <div className="hidden items-center gap-8 md:flex">
+        {/* Center link pill — desktop only */}
+        <nav
+          aria-label="Primary"
+          className="nav-pill hidden items-center gap-1 px-2 py-2 shadow-sm md:flex"
+        >
           {links.map((l) => (
             <a
               key={l.href}
               href={l.href}
-              className="text-sm text-muted transition-colors hover:text-fg"
+              className="rounded-full px-4 py-2 text-sm font-medium text-fg/70 transition-colors hover:bg-black/5 hover:text-fg"
             >
               {l.label}
             </a>
           ))}
-        </div>
+        </nav>
 
-        <div className="hidden md:block">
+        {/* Right actions — desktop only */}
+        <div className="hidden shrink-0 items-center gap-2 md:flex">
           <a
-            href="#contact"
-            className="gradient-bg rounded-full px-5 py-2.5 text-sm font-semibold text-white shadow-lg shadow-brand-purple/25 transition-transform hover:scale-105"
+            href="/portal/login"
+            className="rounded-full px-4 py-2.5 text-sm font-medium text-fg/70 transition-colors hover:text-fg"
           >
+            Client login
+          </a>
+          <a href="#contact" className="btn-pill btn-pill-solid shadow-sm">
             Get started
+            <ArrowUpRight size={15} />
           </a>
         </div>
 
+        {/* Mobile toggle */}
         <button
-          className="text-fg md:hidden"
+          className="nav-pill flex h-11 w-11 items-center justify-center text-fg shadow-sm md:hidden"
           aria-label="Toggle menu"
+          aria-expanded={open}
           onClick={() => setOpen((v) => !v)}
         >
-          {open ? <X size={26} /> : <Menu size={26} />}
+          {open ? <X size={20} /> : <Menu size={20} />}
         </button>
-      </nav>
+      </div>
 
       {/* Mobile menu */}
       {open && (
-        <div className="glass mt-3 md:hidden">
-          <div className="container-page flex flex-col gap-1 py-4">
+        <div className="container-page md:hidden">
+          <div className="nav-pill mt-2 flex flex-col gap-1 rounded-[1.75rem] p-3 shadow-lg">
             {links.map((l) => (
               <a
                 key={l.href}
                 href={l.href}
                 onClick={() => setOpen(false)}
-                className="rounded-lg px-2 py-3 text-base text-muted transition-colors hover:bg-bg-2 hover:text-fg"
+                className="rounded-2xl px-4 py-3 text-base text-fg/80 transition-colors hover:bg-black/5 hover:text-fg"
               >
                 {l.label}
               </a>
             ))}
+            <div className="my-1 h-px bg-border" />
+            <a
+              href="/portal/login"
+              onClick={() => setOpen(false)}
+              className="rounded-2xl px-4 py-3 text-base text-fg/80 transition-colors hover:bg-black/5 hover:text-fg"
+            >
+              Client login
+            </a>
             <a
               href="#contact"
               onClick={() => setOpen(false)}
-              className="gradient-bg mt-2 rounded-full px-5 py-3 text-center text-sm font-semibold text-white"
+              className="btn-pill btn-pill-solid mt-1 justify-center"
             >
               Get started
+              <ArrowUpRight size={15} />
             </a>
           </div>
         </div>

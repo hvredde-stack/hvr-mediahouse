@@ -8,7 +8,7 @@ export function Pricing() {
   const others = pricing.filter((p) => p !== featured);
 
   return (
-    <section id="pricing" className="section-pad bg-tint-peach">
+    <section id="pricing" className="section-pad bg-transparent">
       <div className="container-page">
         <SectionHeading
           center={false}
