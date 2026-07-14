@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Geist } from "next/font/google";
+import { Geist, Playfair_Display } from "next/font/google";
 import "./globals.css";
 import { site } from "@/lib/site";
 import { SiteAnalytics } from "@/components/SiteAnalytics";
@@ -7,6 +7,13 @@ import { SiteAnalytics } from "@/components/SiteAnalytics";
 // Geist — clean, modern enterprise sans used across the whole site (one family).
 const geist = Geist({
   variable: "--font-body-face",
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700"],
+  display: "swap",
+});
+
+const playfair = Playfair_Display({
+  variable: "--font-heading-face",
   subsets: ["latin"],
   weight: ["400", "500", "600", "700"],
   display: "swap",
@@ -83,7 +90,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${geist.variable} h-full`}>
+    <html lang="en" className={`${geist.variable} ${playfair.variable} h-full`}>
       <body className="flex min-h-full flex-col">
         <a
           href="#top"

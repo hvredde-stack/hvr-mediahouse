@@ -80,7 +80,7 @@ export const serviceAreas = [
 ];
 
 /* ── Accent colours used across the site (icon tiles, shapes) ── */
-export const accents = ["#2b5bb0", "#38bdf8", "#14a3b8", "#5b9ae6", "#6366f1"];
+export const accents = ["#0F172A", "#475569", "#64748B", "#94A3B8", "#CBD5E1"];
 
 /* ── Photos (swap these URLs for your own images any time) ───── */
 export const images = {
@@ -186,7 +186,7 @@ export const caseStudies = [
       { metric: "240k", label: "New followers / 6 mo" },
       { metric: "3.1M", label: "Organic views / mo" },
     ],
-    accent: "from-[#2f63c4] to-[#16306b]",
+    accent: "from-[#0F172A] to-[#334155]",
   },
   {
     client: "Urban Eats",
@@ -197,7 +197,7 @@ export const caseStudies = [
       { metric: "3.1M", label: "Video views" },
       { metric: "+62%", label: "Weekend bookings" },
     ],
-    accent: "from-[#2f63c4] to-[#16306b]",
+    accent: "from-[#334155] to-[#475569]",
   },
   {
     client: "FitForge App",
@@ -208,7 +208,7 @@ export const caseStudies = [
       { metric: "180k", label: "App installs" },
       { metric: "-47%", label: "Cost per install" },
     ],
-    accent: "from-[#5b9ae6] to-[#16306b]",
+    accent: "from-[#475569] to-[#64748B]",
   },
   {
     client: "Nova Fashion",
@@ -219,7 +219,7 @@ export const caseStudies = [
       { metric: "$1.4M", label: "Revenue influenced" },
       { metric: "4.7x", label: "Return on ad spend" },
     ],
-    accent: "from-[#3f74c9] to-[#16306b]",
+    accent: "from-[#64748B] to-[#94A3B8]",
   },
 ] as const;
 
