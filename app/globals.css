@@ -21,11 +21,12 @@
   --color-brand-dark: #000000;
 
   /* Signature accent — the one pop of colour, used sparingly:
-     scatter-dot graphics, live indicators, small badges. */
-  --color-lime: #C6FF4D;
-  --color-brand-soft: #EEFBDA;   /* pale lime tint — chip / card backgrounds */
-  --color-brand-strong: #3F6212; /* deep olive-green — readable text/icons on light */
-  --color-brand-purple: #3F6212; /* legacy alias kept for existing components */
+     scatter-dot graphics, live indicators, small badges. Warm amber
+     instead of the reference's green, so the palette reads as HVR's own. */
+  --color-lime: #F4A522;
+  --color-brand-soft: #FBEBD2;   /* pale amber tint — chip / card backgrounds */
+  --color-brand-strong: #7A4A0A; /* deep amber-brown — readable text/icons on light */
+  --color-brand-purple: #7A4A0A; /* legacy alias kept for existing components */
 
   /* Very subtle section-background tints (barely-there, editorial) */
   --color-tint-mint: #F3F8F0;
