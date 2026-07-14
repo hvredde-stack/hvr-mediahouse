@@ -1,50 +1,49 @@
 @import "tailwindcss";
 
 /* ─────────────────────────────────────────────────────────────
-   HVR Media House — clean premium: Navy & Blue (logo gradient)
-   Cool light canvas · navy-ink type · deep-blue brand + bright-blue accent
+   HVR Media House — Premium Studio Aesthetic
+   Clean, minimal, high-end editorial design
    ───────────────────────────────────────────────────────────── */
 @theme {
-  --color-bg: #fafcff; /* very soft pearl white */
-  --color-bg-2: #f4f7fb; /* soft pastel blue tint */
-  --color-surface: #ffffff; /* crisp white card */
-  --color-border: #e6edf5; /* light cool hairline */
-  --color-fg: #2c3e50; /* softer corporate slate-navy */
-  --color-muted: #7f8c8d; /* refined muted gray */
+  /* Backgrounds — Premium Off-White */
+  --color-bg: #F9F9F6;
+  --color-bg-2: #F0F0ED;
+  --color-surface: #FFFFFF;
+  --color-border: #E5E5E0;
 
-  /* Corporate Pastel Brand */
-  --color-brand: #74b9ff; /* pastel blue */
-  --color-brand-strong: #0984e3; /* deeper blue for contrast */
-  --color-brand-soft: #f1f5f8; /* soft grayish blue */
-  --color-brand-purple: #a29bfe; /* pastel lavender */
-  --color-brand-pink: #fab1a0; /* pastel peach/pink */
-  --color-brand-blue: #81ecec; /* pastel mint/cyan */
-  --color-brand-orange: #ffeaa7; /* pastel yellow/orange */
-  --color-ink: #2d3436; /* softer dark charcoal */
+  /* Foreground Text */
+  --color-fg: #1A1A1A;
+  --color-muted: #666666;
 
-  /* Extra accents for a lively-but-cohesive blue palette */
-  --color-amber: #f8c291; /* soft apricot */
-  --color-sage: #55efc4; /* soft mint green */
-  --color-coral: #ff7675; /* soft coral */
-  --color-plum: #a29bfe; /* pastel purple */
-  --color-lime: #00cec9; /* soft teal */
+  /* Brand Accents */
+  --color-brand: #000000;
+  --color-brand-light: #333333;
+  --color-brand-dark: #000000;
 
-  /* Light section panels — gentle cool blue tints */
-  --color-tint-lav: #f8f6fd;
-  --color-tint-blush: #fff5f5;
-  --color-tint-mint: #f0fdf4;
-  --color-tint-sky: #f0f9ff;
-  --color-tint-peach: #fff7ed;
+  /* Signature accent — the one pop of colour, used sparingly:
+     scatter-dot graphics, live indicators, small badges. */
+  --color-lime: #C6FF4D;
+  --color-brand-soft: #EEFBDA;   /* pale lime tint — chip / card backgrounds */
+  --color-brand-strong: #3F6212; /* deep olive-green — readable text/icons on light */
+  --color-brand-purple: #3F6212; /* legacy alias kept for existing components */
 
-  --font-sans: var(--font-body-face), ui-sans-serif, system-ui, sans-serif;
+  /* Very subtle section-background tints (barely-there, editorial) */
+  --color-tint-mint: #F3F8F0;
+  --color-tint-sky: #F2F5FA;
+  --color-tint-lav: #F6F3F8;
+  --color-tint-peach: #FAF4EF;
+
+  /* Fonts */
+  --font-sans: var(--font-body-face), system-ui, sans-serif;
+  --font-serif: var(--font-heading-face), Georgia, serif;
   --font-display: var(--font-body-face), ui-sans-serif, system-ui, sans-serif;
 
   --radius-xl2: 1.5rem;
 }
 
 :root {
-  --gradient-brand: linear-gradient(135deg, #74b9ff 0%, #a29bfe 100%);
-  --gradient-text: linear-gradient(110deg, #0984e3 0%, #74b9ff 55%, #a29bfe 100%);
+  --color-bg: #F9F9F6;
+  --color-fg: #1A1A1A;
 }
 
 * {
@@ -53,10 +52,9 @@
 
 html {
   scroll-behavior: smooth;
-  scroll-padding-top: 5.5rem; /* keep anchored sections clear of the sticky nav */
+  scroll-padding-top: 5.5rem;
 }
 
-/* Visible keyboard focus for accessibility */
 :focus-visible {
   outline: 2px solid var(--color-brand);
   outline-offset: 2px;
@@ -68,35 +66,27 @@ body {
   color: var(--color-fg);
   font-family: var(--font-sans);
   font-size: 1.02rem;
-  line-height: 1.65;
+  line-height: 1.6;
   letter-spacing: -0.011em;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  text-rendering: optimizeLegibility;
-  font-feature-settings: "kern", "liga", "calt";
-  overflow-x: hidden;
 }
 
-/* Richer headings: tight optical tracking + balanced line wraps */
-h1,
-h2,
-h3,
-h4 {
+/* Richer headings */
+h1, h2, h3, h4 {
   letter-spacing: -0.022em;
   text-wrap: balance;
   font-feature-settings: "kern", "liga";
 }
 
-/* Nicer paragraph wrapping */
 p {
   text-wrap: pretty;
 }
 
 ::selection {
-  background: rgba(43, 91, 176, 0.18);
+  background: rgba(0, 0, 0, 0.1);
 }
 
-/* Custom scrollbar */
 ::-webkit-scrollbar {
   width: 10px;
 }
@@ -104,114 +94,81 @@ p {
   background: var(--color-bg);
 }
 ::-webkit-scrollbar-thumb {
-  background: #c4cede;
+  background: #CCCCCC;
   border-radius: 999px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #aebace;
+  background: #999999;
 }
 
 /* ─── Reusable utilities ─────────────────────────────────────── */
 @layer utilities {
   .gradient-text {
-    background: var(--gradient-text);
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
+    /* Kept for compatibility, but solid black now */
+    color: var(--color-fg);
   }
 
-  /* Animated warm shimmer for hero headline accent */
   .text-shimmer {
-    background: linear-gradient(110deg, #74b9ff, #a29bfe 45%, #81ecec 72%, #74b9ff);
-    background-size: 220% auto;
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
-    animation: gradient-shift 5s ease-in-out infinite;
+    /* Removed shimmer effect */
+    color: var(--color-fg);
   }
 
   .gradient-bg {
-    background: var(--gradient-brand);
+    /* Replaced with solid premium black button */
+    background: #1A1A1A;
+    color: #FFFFFF;
+    transition: all 0.3s ease;
+  }
+  .gradient-bg:hover {
+    background: #000000;
   }
 
-  /* Dark cocoa pill button */
   .btn-dark {
-    background: var(--color-ink);
-    color: #fff;
-    transition:
-      transform 0.25s ease,
-      background 0.25s ease;
+    background: #1A1A1A;
+    color: #FFFFFF;
+    transition: all 0.3s ease;
   }
   .btn-dark:hover {
-    background: #1f2d4d;
+    background: #000000;
     transform: translateY(-2px);
   }
 
-  /* Liquid glass on cool light */
+  /* Clean white card instead of glass */
   .glass {
-    background: linear-gradient(
-      135deg,
-      rgba(255, 255, 255, 0.82),
-      rgba(255, 255, 255, 0.58)
-    );
-    backdrop-filter: blur(16px) saturate(140%);
-    -webkit-backdrop-filter: blur(16px) saturate(140%);
-    border: 1px solid rgba(255, 255, 255, 0.7);
-    box-shadow:
-      0 12px 30px rgba(20, 40, 80, 0.1),
-      inset 0 1px 0 rgba(255, 255, 255, 0.9);
+    background: #FFFFFF;
+    border: 1px solid var(--color-border);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
+    border-radius: 12px;
   }
 
-  /* Matte: white surface with a soft cool shadow */
   .matte {
-    background: var(--color-surface);
+    background: #FFFFFF;
     border: 1px solid var(--color-border);
-    box-shadow:
-      0 1px 2px rgba(44, 62, 80, 0.02),
-      0 18px 40px -16px rgba(44, 62, 80, 0.08);
+    border-radius: var(--radius-xl2);
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.02);
   }
+  
   .matte-hover {
-    transition:
-      transform 0.4s cubic-bezier(0.22, 1, 0.36, 1),
-      box-shadow 0.4s ease,
-      border-color 0.4s ease;
+    transition: all 0.4s cubic-bezier(0.22, 1, 0.36, 1);
   }
   .matte-hover:hover {
     transform: translateY(-4px);
-    border-color: rgba(116, 185, 255, 0.4);
-    box-shadow:
-      0 1px 2px rgba(44, 62, 80, 0.03),
-      0 28px 54px -18px rgba(44, 62, 80, 0.12);
+    box-shadow: 0 12px 30px -10px rgba(0, 0, 0, 0.08);
   }
 
   .glass-hover {
-    transition:
-      transform 0.4s cubic-bezier(0.22, 1, 0.36, 1),
-      box-shadow 0.4s ease;
+    transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.4s ease;
   }
   .glass-hover:hover {
     transform: translateY(-4px);
+    box-shadow: 0 12px 30px -10px rgba(0, 0, 0, 0.08);
   }
 
-  /* Terracotta gradient hairline border */
   .gradient-border {
-    position: relative;
-    background: var(--color-surface);
+    /* Replaced with a subtle grey border */
+    background: #FFFFFF;
+    border: 1px solid var(--color-border);
     border-radius: var(--radius-xl2);
-  }
-  .gradient-border::before {
-    content: "";
-    position: absolute;
-    inset: 0;
-    border-radius: inherit;
-    padding: 1px;
-    background: var(--gradient-brand);
-    -webkit-mask:
-      linear-gradient(#fff 0 0) content-box,
-      linear-gradient(#fff 0 0);
-    -webkit-mask-composite: xor;
-    mask-composite: exclude;
-    pointer-events: none;
   }
 
   .section-pad {
@@ -233,112 +190,108 @@ p {
     margin-inline: auto;
     padding-inline: 1.5rem;
   }
+
+  /* Pill buttons — the reference's rounded, capsule CTAs */
+  .btn-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    border-radius: 999px;
+    padding: 0.75rem 1.5rem;
+    font-size: 0.875rem;
+    font-weight: 600;
+    white-space: nowrap;
+    transition: all 0.25s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  .btn-pill-solid {
+    background: #111111;
+    color: #FFFFFF;
+  }
+  .btn-pill-solid:hover {
+    background: #000000;
+    transform: translateY(-2px);
+    box-shadow: 0 10px 24px -8px rgba(0, 0, 0, 0.35);
+  }
+  .btn-pill-outline {
+    background: transparent;
+    color: var(--color-fg);
+    border: 1px solid var(--color-border);
+  }
+  .btn-pill-outline:hover {
+    border-color: var(--color-fg);
+    transform: translateY(-2px);
+  }
+  .btn-pill-ghost {
+    background: rgba(0, 0, 0, 0.04);
+    color: var(--color-fg);
+  }
+  .btn-pill-ghost:hover {
+    background: rgba(0, 0, 0, 0.08);
+  }
+
+  /* Floating nav pill */
+  .nav-pill {
+    border-radius: 999px;
+    border: 1px solid var(--color-border);
+    background: rgba(255, 255, 255, 0.8);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+  }
 }
 
+/* Kept some subtle animations for interaction */
 @keyframes float {
-  0%,
-  100% {
-    transform: translateY(0);
-  }
-  50% {
-    transform: translateY(-12px);
-  }
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
 }
 .animate-float {
   animation: float 7s ease-in-out infinite;
 }
 
+/* Infinite horizontal scroll for the platform marquee */
 @keyframes marquee {
-  from {
-    transform: translateX(0);
-  }
-  to {
-    transform: translateX(-50%);
-  }
+  from { transform: translateX(0); }
+  to { transform: translateX(-100%); }
 }
 .animate-marquee {
-  animation: marquee 30s linear infinite;
+  animation: marquee 26s linear infinite;
 }
 
-@keyframes gradient-shift {
-  0%,
-  100% {
-    background-position: 0% center;
-  }
-  50% {
-    background-position: 100% center;
-  }
-}
-
-
-/* Equalizer / live chart bars */
+/* Equalizer bars — AI call waveform */
 @keyframes eq {
-  0%,
-  100% {
-    transform: scaleY(0.32);
-  }
-  50% {
-    transform: scaleY(1);
-  }
+  0%, 100% { transform: scaleY(0.35); }
+  50% { transform: scaleY(1); }
 }
 .animate-eq {
-  animation: eq 1s ease-in-out infinite;
+  animation: eq 1.1s ease-in-out infinite;
   transform-origin: bottom;
 }
 
-/* Chart line drawing itself in */
+/* Line-drawing reveal for growth-chart SVG paths */
 @keyframes draw {
-  from {
-    stroke-dashoffset: 420;
-  }
-  to {
-    stroke-dashoffset: 0;
-  }
+  from { opacity: 0; transform: scaleX(0.85); }
+  to { opacity: 1; transform: scaleX(1); }
 }
 .animate-draw {
-  stroke-dasharray: 420;
-  animation: draw 2s ease-out forwards;
+  animation: draw 1s ease-out forwards;
+  transform-origin: left center;
 }
 
-/* Floating reactions rising up */
-@keyframes rise {
-  0% {
-    transform: translateY(0) scale(0.7);
-    opacity: 0;
-  }
-  18% {
-    opacity: 0.95;
-  }
-  100% {
-    transform: translateY(-72px) scale(1.15);
-    opacity: 0;
-  }
+/* Soft pulse for scatter-dot hero graphic */
+@keyframes dot-pulse {
+  0%, 100% { opacity: 0.35; }
+  50% { opacity: 0.9; }
 }
-.animate-rise {
-  animation: rise 3s ease-in infinite;
-}
-
-@keyframes float-slow {
-  0%,
-  100% {
-    transform: translateY(0) scale(1);
-  }
-  50% {
-    transform: translateY(-16px) scale(1.03);
-  }
-}
-.animate-float-slow {
-  animation: float-slow 11s ease-in-out infinite;
+.animate-dot-pulse {
+  animation: dot-pulse 4s ease-in-out infinite;
 }
 
 @media (prefers-reduced-motion: reduce) {
   .animate-float,
-  .animate-float-slow,
   .animate-marquee,
   .animate-eq,
-  .animate-rise,
   .animate-draw,
-  .text-shimmer {
+  .animate-dot-pulse {
     animation: none;
   }
   html {
